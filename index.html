@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savor Smart - Premium Vending & Micro Marts</title>
+    <style>
+        /* --- Global Styles & Provided Green Palette --- */
+        :root {
+            --green: #139051;
+            --dark-green: #08372e;
+            --light-green: #c1febe;
+            --pale-green: #e0ffdf;
+            --grey-bg: #f6f6f6;
+            --brand-black: #000000;
+            --white: #FFFFFF;
+
+            /* Derived usage */
+            --text-primary-on-light: var(--dark-green);
+            /* Dark green text on light backgrounds */
+            --text-primary-on-dark: var(--white);
+            /* White text on dark green backgrounds */
+            --text-secondary-on-light: #4a5568;
+            /* A neutral grey for secondary text, can adjust if needed */
+
+            --bg-main: var(--white);
+            /* Main page background */
+            --bg-section-pale: var(--pale-green);
+            --bg-section-grey: var(--white);
+            --bg-footer: var(--dark-green);
+
+            --button-primary-bg: var(--green);
+            --button-primary-text: var(--white);
+            --button-secondary-border: var(--green);
+            --button-secondary-text: var(--green);
+            --button-secondary-hover-bg: var(--green);
+            --button-secondary-hover-text: var(--white);
+
+            --heading-color: var(--dark-green);
+            --accent-color: var(--green);
+
+            --font-primary: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            /* A modern, friendly sans-serif */
+            --shadow-card: 0 3px 10px rgba(0, 0, 0, 0.05);
+            --shadow-card-hover: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --border-color-light: #e2e8f0;
+            /* Light border for cards/dividers */
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap');
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-main);
+            color: var(--text-primary-on-light);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 15px;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--heading-color);
+            margin-top: 0;
+            margin-bottom: 15px;
+            line-height: 1.3;
+            font-weight: 800;
+            /* Bolder headings with Nunito Sans */
+        }
+
+        h1 {
+            font-size: 2.5em;
+        }
+
+        h2 {
+            font-size: 2.1em;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
+
+        p {
+            margin-top: 0;
+            margin-bottom: 1.2em;
+            color: var(--text-secondary-on-light);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background-color: var(--button-primary-bg);
+            color: var(--button-primary-text);
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 700;
+            transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95em;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(19, 144, 81, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #107d46;
+            /* Slightly darker shade of main green */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(19, 144, 81, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--button-secondary-border);
+            color: var(--button-secondary-text);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--button-secondary-hover-bg);
+            color: var(--button-secondary-hover-text);
+            border-color: var(--button-secondary-hover-bg);
+        }
+
+        /* --- Navigation --- */
+        nav {
+            background-color: var(--bg-main);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        nav .logo {
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--brand-black);
+            text-decoration: none;
+        }
+
+        /* BLACK for brand name */
+        nav .logo span {
+            color: var(--green);
+        }
+
+        /* Main green for "Smart" */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 24px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-primary-on-light);
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: color 0.25s ease;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            /* Underline effect */
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--accent-color);
+        }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--heading-color);
+        }
+
+        /* --- Hero Section --- */
+        #hero {
+            background-color: var(--white);
+            /* Pale green background for hero */
+            text-align: center;
+            padding: 90px 15px 80px;
+            border-bottom: 1px solid var(--light-green);
+            /* Light green border */
+        }
+
+        #hero h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+
+        #hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 680px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--text-primary-on-light);
+            /* Dark green text for readability on pale green */
+        }
+
+        /* --- Section Styling --- */
+        section {
+            padding: 70px 0;
+        }
+
+        section.bg-grey {
+            background-color: var(--pale-green);
+            border-top: 1px solid var(--border-color-light);
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        section.bg-pale-green {
+            background-color: var(--white);
+            border-top: 1px solid var(--light-green);
+            border-bottom: 1px solid var(--light-green);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        /* --- Solutions Section - Image Left/Right --- */
+        .solutions-intro {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            color: var(--text-secondary-on-light);
+        }
+
+        .solution-item {
+            display: flex;
+            background-color: var(--grey-bg);
+            /* White background for cards */
+            border-radius: 8px;
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            margin-bottom: 40px;
+            transition: box-shadow 0.3s ease;
+            align-items: center;
+        }
+
+        .solution-item:hover {
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .solution-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .solution-image {
+            flex: 0 0 48%;
+            max-width: 48%;
+            min-height: 300px;
+            overflow: hidden;
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .solution-item:hover .solution-image img {
+            transform: scale(1.03);
+        }
+
+        .solution-content {
+            flex: 1;
+            padding: 35px 40px;
+        }
+
+        .solution-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.7em;
+        }
+
+        .solution-content p.description {
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .solution-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .solution-content ul li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .solution-content ul li::before {
+            content: '✓';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .solution-content .btn {
+            margin-top: 15px;
+        }
+
+        /* --- Why Us Section --- */
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+        }
+
+        .why-us-item {
+            padding: 30px 20px;
+            text-align: center;
+            background-color: var(--white);
+            border-radius: 8px;
+            border: 1px solid var(--light-green);
+            /* Light green border */
+            box-shadow: var(--shadow-card);
+        }
+
+        .why-us-item .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .why-us-item h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .why-us-item p {
+            font-size: 0.9em;
+            color: var(--text-secondary-on-light);
+        }
+
+        /* --- How It Works Section --- */
+        .how-it-works-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .step {
+            background: var(--grey-bg);
+            padding: 30px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--light-green);
+            text-align: center;
+            box-shadow: var(--shadow-card);
+        }
+
+        .step .step-number-container {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            color: var(--button-primary-text);
+            font-size: 1.4em;
+            font-weight: 700;
+            margin: 0 auto 15px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step h4 {
+            font-size: 1.15em;
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+
+        .step p {
+            font-size: 0.9em;
+            color: var(--text-secondary-on-light);
+        }
+
+        /* --- About Snippet Section --- */
+        #about-snippet {
+            text-align: center;
+            padding: 60px 15px;
+        }
+
+        #about-snippet h2 {
+            margin-bottom: 20px;
+        }
+
+        #about-snippet p {
+            max-width: 720px;
+            margin: 0 auto 25px auto;
+            font-size: 1.1em;
+        }
+
+        /* --- Contact Section --- */
+        .contact-form-container {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: var(--grey-bg);
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--pale-green);
+        }
+
+        .contact-form-container h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.6em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: var(--text-primary-on-light);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            background-color: var(--white);
+            border: 1px solid var(--border-color-light);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-family: var(--font-primary);
+            font-size: 0.95em;
+            color: var(--text-primary-on-light);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px var(--light-green);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.95em;
+        }
+
+        .contact-info p {
+            margin-bottom: 5px;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--bg-footer);
+            color: var(--pale-green);
+            /* Pale green text on dark green footer */
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9em;
+        }
+
+        footer p {
+            margin: 8px 0;
+        }
+
+        footer a {
+            color: var(--light-green);
+            /* Light green links in footer */
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: var(--white);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .container {
+                padding: 50px 15px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            #hero h1 {
+                font-size: 2.5em;
+            }
+
+            #hero p {
+                font-size: 1.1em;
+            }
+
+            .solution-item,
+            .solution-item:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .solution-image {
+                flex: 0 0 auto;
+                max-width: 100%;
+                width: 100%;
+                min-height: 240px;
+            }
+
+            .solution-content {
+                padding: 30px 25px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background-color: var(--white);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+                padding: 5px 0;
+                border-top: 1px solid var(--border-color-light);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 10px 15px;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-left: auto;
+                padding-right: 10px;
+            }
+
+            .section-title {
+                font-size: 1.9em;
+                margin-bottom: 35px;
+            }
+
+            .why-us-grid,
+            .how-it-works-steps {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .why-us-item,
+            .step {
+                padding: 25px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #hero {
+                padding: 70px 15px 60px;
+            }
+
+            #hero h1 {
+                font-size: 2.1em;
+            }
+
+            #hero p {
+                font-size: 1em;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 14px 20px;
+            }
+
+            .solution-content {
+                padding: 25px 20px;
+            }
+
+            .solution-content h3 {
+                font-size: 1.4em;
+            }
+
+            .contact-form-container {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav id="main-nav">
+        <div class="container">
+            <a href="#hero" class="logo">Savor<span>Smart</span></a>
+            <div class="menu-toggle" id="mobile-menu">
+                ☰
+            </div>
+            <ul id="nav-links">
+                <li><a href="#hero" class="active">Home</a></li>
+                <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#why-us">Why Us</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <h1>Fresh & Smart Vending for Your Workplace</h1>
+            <p>Savor Smart offers free installation and full management of AI-powered vending machines and micro marts,
+                stocked with choices your team will love.</p>
+            <a href="#contact" class="btn">Get a Free Quote</a>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="bg-grey"> <!-- Using grey background for this section -->
+        <div class="container">
+            <h2 class="section-title">Our Modern Vending & Mart Solutions</h2>
+            <p class="solutions-intro">Discover how our range of services can enhance your employee benefits and
+                workplace convenience, all at no cost to you.</p>
+
+            <div class="solution-item">
+                <div class="solution-image">
+                    <img src="./images/ai1.jpg" alt="AI Powered Vending Machine in an office">
+                </div>
+                <div class="solution-content">
+                    <h3>AI-Powered Vending</h3>
+                    <p class="description">Our smart vending machines utilize AI for optimized inventory, popular
+                        product suggestions, and seamless cashless transactions.</p>
+                    <ul>
+                        <li>Intelligent stock management</li>
+                        <li>Contactless payment options</li>
+                        <li>Personalized recommendations</li>
+                        <li>Energy-efficient technology</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Inquire About AI Vending</a>
+                </div>
+            </div>
+
+            <div class="solution-item">
+                <div class="solution-image">
+                    <img src="./images/mm1.png" alt="Well-stocked Micro Mart">
+                </div>
+                <div class="solution-content">
+                    <h3>Micro Markets</h3>
+                    <p class="description">A custom-designed, self-service market in your breakroom, offering a wide
+                        selection of fresh foods, healthy snacks, and beverages.</p>
+                    <ul>
+                        <li>24/7 access to diverse products</li>
+                        <li>Secure, easy self-checkout</li>
+                        <li>Customizable to fit your space</li>
+                        <li>Promotes employee well-being</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Explore Micro Markets</a>
+                </div>
+            </div>
+
+            <div class="solution-item">
+                <div class="solution-image">
+                    <!-- Replace with appropriate image for specialized vending -->
+                    <img src="images/ven2.png" alt="Specialized Vending Machine">
+                </div>
+                <div class="solution-content">
+                    <h3>Specialized Vending</h3>
+                    <p class="description">We provide tailored vending solutions, including secure machines with age
+                        verification and premium coffee stations.</p>
+                    <ul>
+                        <li>Age-verified product sales</li>
+                        <li>Fresh bean-to-cup coffee</li>
+                        <li>Fresh food and snack combinations</li>
+                        <li>Hot and cold beverages</li>
+                        <li>Machines for non-traditional items</li>
+                        <li>Custom solutions for unique needs</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Discuss Your Needs</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="bg-pale-green"> <!-- Pale green background for Why Us -->
+        <div class="container">
+            <h2 class="section-title">The Savor Smart Advantage</h2>
+            <div class="why-us-grid">
+                <div class="why-us-item">
+                    <div class="icon">🎁</div>
+                    <h4>Absolutely Free Service</h4>
+                    <p>No costs for machines, installation, stocking, or maintenance. It's all on us.</p>
+                </div>
+                <div class="why-us-item">
+                    <div class="icon">⚙️</div>
+                    <h4>Latest Technology</h4>
+                    <p>Smart AI, cashless systems, and reliable, modern vending equipment.</p>
+                </div>
+                <div class="why-us-item">
+                    <div class="icon">😊</div>
+                    <h4>Happier Employees</h4>
+                    <p>Boost morale with convenient access to a wide variety of quality refreshments.</p>
+                </div>
+                <div class="why-us-item">
+                    <div class="icon">🤝</div>
+                    <h4>Full Management</h4>
+                    <p>We handle everything, offering you a completely hassle-free experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="bg-grey"> <!-- Grey background for How It Works -->
+        <div class="container">
+            <h2 class="section-title">Our Simple Setup Process</h2>
+            <div class="how-it-works-steps">
+                <div class="step">
+                    <div class="step-number-container">1</div>
+                    <h4>Consultation</h4>
+                    <p>We'll discuss your specific needs and assess your location.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number-container">2</div>
+                    <h4>Custom Plan</h4>
+                    <p>You receive a tailored proposal with our recommended solutions.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number-container">3</div>
+                    <h4>Installation</h4>
+                    <p>Our expert team sets up your new system efficiently.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number-container">4</div>
+                    <h4>Enjoy Service</h4>
+                    <p>We manage all stocking, maintenance, and support.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Snippet Section -->
+    <section id="about-snippet">
+        <div class="container">
+            <h2>About Savor Smart</h2>
+            <p>At Savor Smart, we are passionate about revolutionizing workplace amenities. We provide cutting-edge,
+                fully managed vending and micro market solutions at zero cost to businesses. Our commitment to
+                innovation, quality products, and exceptional service makes us the ideal partner for companies looking
+                to enhance their employee experience and foster a more productive environment.</p>
+            <a href="#contact" class="btn">Learn More About Us</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-grey"> <!-- Pale green background for Contact -->
+        <div class="container">
+            <h2 class="section-title">Get Your Free Vending Solution Today!</h2>
+            <div class="contact-form-container">
+                <h3>Request a No-Obligation Consultation</h3>
+                <form action="https://formspree.io/f/xwpbvblo" method="POST">
+                    <div class="form-group"> <label for="name">Full Name:</label> <input type="text" id="name"
+                            name="name" required> </div>
+                    <div class="form-group"> <label for="company">Company Name:</label> <input type="text" id="company"
+                            name="company" required> </div>
+                    <div class="form-group"> <label for="email">Email Address:</label> <input type="email" id="email"
+                            name="email" required> </div>
+                    <div class="form-group"> <label for="phone">Phone Number:</label> <input type="tel" id="phone"
+                            name="phone"> </div>
+                    <div class="form-group"> <label for="message">Message (Optional):</label> <textarea id="message"
+                            name="message" rows="3"></textarea> </div>
+                    <button type="submit" class="btn" style="width:100%;">Submit Request</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <p>Or call us at <a href="tel:+1800SAVORSMART">(902) 809 6861</a> | Email: <a
+                        href="mailto:info@savorsmart.com">info@savorsmart.com</a></p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container" style="padding: 25px 15px;">
+            <p>© <span id="currentYear"></span> Savor Smart. Your Partner in Workplace Refreshments.</p>
+            <!--<p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>-->
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        mobileMenu.addEventListener('click', () => navLinks.classList.toggle('active'));
+        document.querySelectorAll('#nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navLinks.classList.contains('active')) navLinks.classList.remove('active');
+            });
+        });
+
+        // Active Nav Link Scrolling
+        const sections = document.querySelectorAll('section[id]'); // Ensure only sections with ID are selected
+        const navLiAnchors = document.querySelectorAll('nav ul li a');
+        window.addEventListener('scroll', () => {
+            let current = 'hero';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - (window.innerHeight / 2.5))) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navLiAnchors.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').substring(1) === current) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
