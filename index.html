@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savor Smart - Premium Vending & Micro Marts</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.ico">
     <style>
         /* --- Global Styles & Provided Green Palette --- */
         :root {
@@ -224,7 +225,7 @@
 
         /* --- Hero Section --- */
         #hero {
-            background-color: var(--white);
+            background: linear-gradient(rgba(26, 32, 44, 0.75), rgba(26, 32, 44, 0.85)), url('images/new8.jpg') no-repeat center center/cover; /* Replace with ultra high-quality image */
             /* Pale green background for hero */
             text-align: center;
             padding: 90px 15px 80px;
@@ -235,6 +236,7 @@
         #hero h1 {
             font-size: 2.8em;
             margin-bottom: 20px;
+            color: var(--grey-bg);
         }
 
         #hero p {
@@ -243,7 +245,7 @@
             max-width: 680px;
             margin-left: auto;
             margin-right: auto;
-            color: var(--text-primary-on-light);
+            color: var(--grey-bg);
             /* Dark green text for readability on pale green */
         }
 
@@ -671,7 +673,10 @@
     <!-- Navigation Bar -->
     <nav id="main-nav">
         <div class="container">
-            <a href="#hero" class="logo">Savor<span>Smart</span></a>
+            <a href="#hero" class="logo">
+               <!--<img src="./images/logo.ico" alt="brand-logo">--> 
+                Savor<span>Smart</span>
+            </a>
             <div class="menu-toggle" id="mobile-menu">
                 ☰
             </div>
@@ -688,6 +693,9 @@
     <!-- Hero Section -->
     <section id="hero">
         <div class="container">
+            <br>
+            <br>
+            <br>
             <h1>Fresh & Smart Vending for Your Workplace</h1>
             <p>Savor Smart offers free installation and full management of AI-powered vending machines and micro marts,
                 stocked with choices your team will love.</p>
