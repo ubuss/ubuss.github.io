@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Savor Smart - Premium Vending & Micro Marts</title>
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* --- Global Styles & Provided Green Palette --- */
         :root {
@@ -225,7 +226,8 @@
 
         /* --- Hero Section --- */
         #hero {
-            background: linear-gradient(rgba(26, 32, 44, 0.75), rgba(26, 32, 44, 0.85)), url('images/new8.jpg') no-repeat center center/cover; /* Replace with ultra high-quality image */
+            background: linear-gradient(rgba(26, 32, 44, 0.75), rgba(26, 32, 44, 0.85)), url('images/new8.jpg') no-repeat center center/cover;
+            /* Replace with ultra high-quality image */
             /* Pale green background for hero */
             text-align: center;
             padding: 90px 15px 80px;
@@ -649,7 +651,7 @@
             }
 
             .btn {
-                
+
                 padding: 14px 20px;
             }
 
@@ -674,7 +676,7 @@
     <nav id="main-nav">
         <div class="container">
             <a href="#hero" class="logo">
-               <!--<img src="./images/logo.ico" alt="brand-logo">--> 
+                <!--<img src="./images/logo.ico" alt="brand-logo">-->
                 Savor<span>Smart</span>
             </a>
             <div class="menu-toggle" id="mobile-menu">
@@ -846,7 +848,15 @@
             <h2 class="section-title">Get Your Free Vending Solution Today!</h2>
             <div class="contact-form-container">
                 <h3>Request a No-Obligation Consultation</h3>
-                <form action="https://formspree.io/f/mjkrgdol" method="POST">
+                <form id="contactForm" action="https://api.staticforms.xyz/submit" method="POST">
+                    <!-- Required: Your Static Forms API key -->
+                    <input type="hidden" name="apiKey" value="sf_8f3a6jec2cbgb4m2dl8e4g56">
+
+                    <!-- Enable reply-to functionality -->
+                    <input type="hidden" name="replyTo" value="@">
+                    <!-- Anti-spam honeypot field -->
+                    <input type="text" name="honeypot" style="display: none" tabindex="-1" autocomplete="off">
+
                     <div class="form-group"> <label for="name">Full Name:</label> <input type="text" id="name"
                             name="name" required> </div>
                     <div class="form-group"> <label for="company">Company Name:</label> <input type="text" id="company"
@@ -857,7 +867,13 @@
                             name="phone"> </div>
                     <div class="form-group"> <label for="message">Message (Optional):</label> <textarea id="message"
                             name="message" rows="3"></textarea> </div>
+                    <!--<div id="formMessage" style="display:none; color: var(--dark-green);">Thank you! We have recieved your message.</div>-->
                     <button type="submit" class="btn" style="width:100%;">Submit Request</button>
+                    <!-- reCAPTCHA integration -->
+                    <!--<div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+                    <!-- Optional redirect URLs -->
+                    <!--    <input type="hidden" name="redirectTo" value="https://savorsmart.ca">-->
                 </form>
             </div>
             <div class="contact-info">
@@ -906,6 +922,39 @@
 
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        //Submit form 
+        const form = document.getElementById("contactForm");
+        //const message = document.getElementById("formMessage");
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault(); // prevent page refresh
+
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData,
+            });
+
+            if (response.ok) {
+                form.reset();
+                Swal.fire({
+                    title: "Success!",
+                    text: "We have recieved your message.",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#139051" // green button
+                });
+            } else {
+                Swal.fire({
+                    title: "Oops!",
+                    text: "Something went wrong. Please try again.",
+                    icon: "error",
+                    confirmButtonText: "Retry",
+                    confirmButtonColor: "#139051" // green button
+                });
+            }
+        });
     </script>
 
 </body>
