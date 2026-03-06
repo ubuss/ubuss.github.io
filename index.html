@@ -1,962 +1,855 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savor Smart - Premium Vending & Micro Marts</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-        /* --- Global Styles & Provided Green Palette --- */
-        :root {
-            --green: #139051;
-            --dark-green: #08372e;
-            --light-green: #c1febe;
-            --pale-green: #e0ffdf;
-            --grey-bg: #f6f6f6;
-            --brand-black: #000000;
-            --white: #FFFFFF;
-
-            /* Derived usage */
-            --text-primary-on-light: var(--dark-green);
-            /* Dark green text on light backgrounds */
-            --text-primary-on-dark: var(--white);
-            /* White text on dark green backgrounds */
-            --text-secondary-on-light: #4a5568;
-            /* A neutral grey for secondary text, can adjust if needed */
-
-            --bg-main: var(--white);
-            /* Main page background */
-            --bg-section-pale: var(--pale-green);
-            --bg-section-grey: var(--white);
-            --bg-footer: var(--dark-green);
-
-            --button-primary-bg: var(--green);
-            --button-primary-text: var(--white);
-            --button-secondary-border: var(--green);
-            --button-secondary-text: var(--green);
-            --button-secondary-hover-bg: var(--green);
-            --button-secondary-hover-text: var(--white);
-
-            --heading-color: var(--dark-green);
-            --accent-color: var(--green);
-
-            --font-primary: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
-            /* A modern, friendly sans-serif */
-            --shadow-card: 0 3px 10px rgba(0, 0, 0, 0.05);
-            --shadow-card-hover: 0 5px 15px rgba(0, 0, 0, 0.08);
-            --border-color-light: #e2e8f0;
-            /* Light border for cards/dividers */
-        }
-
-        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap');
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            margin: 0;
-            padding: 0;
-            background-color: var(--bg-main);
-            color: var(--text-primary-on-light);
-            line-height: 1.7;
-            font-size: 16px;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 15px;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4 {
-            color: var(--heading-color);
-            margin-top: 0;
-            margin-bottom: 15px;
-            line-height: 1.3;
-            font-weight: 800;
-            /* Bolder headings with Nunito Sans */
-        }
-
-        h1 {
-            font-size: 2.5em;
-        }
-
-        h2 {
-            font-size: 2.1em;
-        }
-
-        h3 {
-            font-size: 1.5em;
-            font-weight: 700;
-        }
-
-        p {
-            margin-top: 0;
-            margin-bottom: 1.2em;
-            color: var(--text-secondary-on-light);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 28px;
-            background-color: var(--button-primary-bg);
-            color: var(--button-primary-text);
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 700;
-            transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 0.95em;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(19, 144, 81, 0.2);
-        }
-
-        .btn:hover {
-            background-color: #107d46;
-            /* Slightly darker shade of main green */
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(19, 144, 81, 0.3);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            border: 2px solid var(--button-secondary-border);
-            color: var(--button-secondary-text);
-            box-shadow: none;
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--button-secondary-hover-bg);
-            color: var(--button-secondary-hover-text);
-            border-color: var(--button-secondary-hover-bg);
-        }
-
-        /* --- Navigation --- */
-        nav {
-            background-color: var(--bg-main);
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
-            border-bottom: 1px solid var(--border-color-light);
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-
-        nav .logo {
-            font-size: 1.8em;
-            font-weight: 800;
-            color: var(--brand-black);
-            text-decoration: none;
-        }
-
-        /* BLACK for brand name */
-        nav .logo span {
-            color: var(--green);
-        }
-
-        /* Main green for "Smart" */
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-        }
-
-        nav ul li {
-            margin-left: 24px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--text-primary-on-light);
-            font-weight: 600;
-            font-size: 0.9em;
-            transition: color 0.25s ease;
-            padding: 8px 0;
-            position: relative;
-        }
-
-        nav ul li a::after {
-            /* Underline effect */
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover,
-        nav ul li a.active {
-            color: var(--accent-color);
-        }
-
-        nav ul li a:hover::after,
-        nav ul li a.active::after {
-            width: 100%;
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 22px;
-            cursor: pointer;
-            color: var(--heading-color);
-        }
-
-        /* --- Hero Section --- */
-        #hero {
-            background: linear-gradient(rgba(26, 32, 44, 0.75), rgba(26, 32, 44, 0.85)), url('images/new8.jpg') no-repeat center center/cover;
-            /* Replace with ultra high-quality image */
-            /* Pale green background for hero */
-            text-align: center;
-            padding: 90px 15px 80px;
-            border-bottom: 1px solid var(--light-green);
-            /* Light green border */
-        }
-
-        #hero h1 {
-            font-size: 2.8em;
-            margin-bottom: 20px;
-            color: var(--grey-bg);
-        }
-
-        #hero p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-            max-width: 680px;
-            margin-left: auto;
-            margin-right: auto;
-            color: var(--grey-bg);
-            /* Dark green text for readability on pale green */
-        }
-
-        /* --- Section Styling --- */
-        section {
-            padding: 70px 0;
-        }
-
-        section.bg-grey {
-            background-color: var(--pale-green);
-            border-top: 1px solid var(--border-color-light);
-            border-bottom: 1px solid var(--border-color-light);
-        }
-
-        section.bg-pale-green {
-            background-color: var(--white);
-            border-top: 1px solid var(--light-green);
-            border-bottom: 1px solid var(--light-green);
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        /* --- Solutions Section - Image Left/Right --- */
-        .solutions-intro {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 1.1em;
-            color: var(--text-secondary-on-light);
-        }
-
-        .solution-item {
-            display: flex;
-            background-color: var(--grey-bg);
-            /* White background for cards */
-            border-radius: 8px;
-            box-shadow: var(--shadow-card);
-            overflow: hidden;
-            margin-bottom: 40px;
-            transition: box-shadow 0.3s ease;
-            align-items: center;
-        }
-
-        .solution-item:hover {
-            box-shadow: var(--shadow-card-hover);
-        }
-
-        .solution-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        .solution-image {
-            flex: 0 0 48%;
-            max-width: 48%;
-            min-height: 300px;
-            overflow: hidden;
-        }
-
-        .solution-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .solution-item:hover .solution-image img {
-            transform: scale(1.03);
-        }
-
-        .solution-content {
-            flex: 1;
-            padding: 35px 40px;
-        }
-
-        .solution-content h3 {
-            margin-bottom: 10px;
-            font-size: 1.7em;
-        }
-
-        .solution-content p.description {
-            font-size: 1em;
-            margin-bottom: 20px;
-        }
-
-        .solution-content ul {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 20px;
-        }
-
-        .solution-content ul li {
-            padding-left: 25px;
-            position: relative;
-            margin-bottom: 10px;
-            font-size: 0.95em;
-        }
-
-        .solution-content ul li::before {
-            content: '✓';
-            color: var(--accent-color);
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        .solution-content .btn {
-            margin-top: 15px;
-        }
-
-        /* --- Why Us Section --- */
-        .why-us-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 30px;
-        }
-
-        .why-us-item {
-            padding: 30px 20px;
-            text-align: center;
-            background-color: var(--white);
-            border-radius: 8px;
-            border: 1px solid var(--light-green);
-            /* Light green border */
-            box-shadow: var(--shadow-card);
-        }
-
-        .why-us-item .icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-
-        .why-us-item h4 {
-            font-size: 1.2em;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .why-us-item p {
-            font-size: 0.9em;
-            color: var(--text-secondary-on-light);
-        }
-
-        /* --- How It Works Section --- */
-        .how-it-works-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-        }
-
-        .step {
-            background: var(--grey-bg);
-            padding: 30px 20px;
-            border-radius: 8px;
-            border: 1px solid var(--light-green);
-            text-align: center;
-            box-shadow: var(--shadow-card);
-        }
-
-        .step .step-number-container {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--accent-color);
-            color: var(--button-primary-text);
-            font-size: 1.4em;
-            font-weight: 700;
-            margin: 0 auto 15px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .step h4 {
-            font-size: 1.15em;
-            color: var(--heading-color);
-            font-weight: 700;
-        }
-
-        .step p {
-            font-size: 0.9em;
-            color: var(--text-secondary-on-light);
-        }
-
-        /* --- About Snippet Section --- */
-        #about-snippet {
-            text-align: center;
-            padding: 60px 15px;
-        }
-
-        #about-snippet h2 {
-            margin-bottom: 20px;
-        }
-
-        #about-snippet p {
-            max-width: 720px;
-            margin: 0 auto 25px auto;
-            font-size: 1.1em;
-        }
-
-        /* --- Contact Section --- */
-        .contact-form-container {
-            max-width: 650px;
-            margin: 0 auto;
-            background-color: var(--grey-bg);
-            padding: 35px;
-            border-radius: 8px;
-            box-shadow: var(--shadow-card);
-            border: 1px solid var(--pale-green);
-        }
-
-        .contact-form-container h3 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 1.6em;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.9em;
-            color: var(--text-primary-on-light);
-        }
-
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 12px 14px;
-            background-color: var(--white);
-            border: 1px solid var(--border-color-light);
-            border-radius: 6px;
-            box-sizing: border-box;
-            font-family: var(--font-primary);
-            font-size: 0.95em;
-            color: var(--text-primary-on-light);
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: var(--accent-color);
-            box-shadow: 0 0 0 3px var(--light-green);
-        }
-
-        .form-group textarea {
-            min-height: 100px;
-        }
-
-        .contact-info {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.95em;
-        }
-
-        .contact-info p {
-            margin-bottom: 5px;
-        }
-
-        .contact-info a {
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* --- Footer --- */
-        footer {
-            background-color: var(--bg-footer);
-            color: var(--pale-green);
-            /* Pale green text on dark green footer */
-            text-align: center;
-            padding: 30px 0;
-            font-size: 0.9em;
-        }
-
-        footer p {
-            margin: 8px 0;
-        }
-
-        footer a {
-            color: var(--light-green);
-            /* Light green links in footer */
-            font-weight: 600;
-        }
-
-        footer a:hover {
-            color: var(--white);
-        }
-
-        /* --- Responsive Design --- */
-        @media (max-width: 992px) {
-            .container {
-                padding: 50px 15px;
-            }
-
-            h1 {
-                font-size: 2.2em;
-            }
-
-            #hero h1 {
-                font-size: 2.5em;
-            }
-
-            #hero p {
-                font-size: 1.1em;
-            }
-
-            .solution-item,
-            .solution-item:nth-child(even) {
-                flex-direction: column;
-            }
-
-            .solution-image {
-                flex: 0 0 auto;
-                max-width: 100%;
-                width: 100%;
-                min-height: 240px;
-            }
-
-            .solution-content {
-                padding: 30px 25px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                font-size: 15px;
-            }
-
-            nav ul {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background-color: var(--white);
-                position: absolute;
-                top: 100%;
-                left: 0;
-                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
-                padding: 5px 0;
-                border-top: 1px solid var(--border-color-light);
-            }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            nav ul li {
-                margin: 0;
-            }
-
-            nav ul li a {
-                display: block;
-                padding: 10px 15px;
-            }
-
-            .menu-toggle {
-                display: block;
-                margin-left: auto;
-                padding-right: 10px;
-            }
-
-            .section-title {
-                font-size: 1.9em;
-                margin-bottom: 35px;
-            }
-
-            .why-us-grid,
-            .how-it-works-steps {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .why-us-item,
-            .step {
-                padding: 25px 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            #hero {
-                padding: 70px 15px 60px;
-            }
-
-            #hero h1 {
-                font-size: 2.1em;
-            }
-
-            #hero p {
-                font-size: 1em;
-            }
-
-            .btn {
-
-                padding: 14px 20px;
-            }
-
-            .solution-content {
-                padding: 25px 20px;
-            }
-
-            .solution-content h3 {
-                font-size: 1.4em;
-            }
-
-            .contact-form-container {
-                padding: 25px 15px;
-            }
-        }
-    </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SavorSmart</title>
+<link rel="icon" type="image/x-icon" href="images/logo/icon.png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --black: #0a0a0a;
+  --accent1: #c84b9e;
+  --accent2: #e8883a;
+  --accent3: #7c3aed;
+}
+
+/* ════════════════════════════════════════════════════
+   BASE / DESKTOP  (≥1024px)
+════════════════════════════════════════════════════ */
+html, body { width: 100%; height: 100%; }
+body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: hidden; }
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a0a0a 0%, #0f0f14 40%, #0a0a10 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.035; z-index: 1; pointer-events: none;
+}
+
+/* ── Orbs ── */
+.orb { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
+.orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(200,75,158,0.18) 0%, transparent 70%); top: -100px; right: 200px; }
+.orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(232,136,58,0.12) 0%, transparent 70%); bottom: -100px; right: 600px; }
+.orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%); top: 100px; left: 100px; }
+
+.grid-lines {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ── Nav ── */
+.nav {
+  position: absolute; top: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: clamp(20px, 2.2vw, 28px) clamp(24px, 5vw, 72px);
+}
+.logo { display: flex; align-items: center; gap: 14px; }
+.logo-icon { width: 38px; height: 38px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; flex-shrink: 0; }
+.logo-dot { border-radius: 4px; background: linear-gradient(135deg, #c84b9e, #e8883a); }
+.logo-text { font-size: 22px; font-weight: 700; color: white; letter-spacing: -0.5px; white-space: nowrap; }
+
+.nav-contact {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: white; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none;
+  background: linear-gradient(135deg, #c84b9e, #e8883a);
+  border-radius: 100px; padding: 10px 20px;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.nav-contact:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ── Machines ── */
+.machines {
+  position: absolute;
+  top: auto;
+  right: clamp(10px, 2vw, 30px);
+  bottom: clamp(28px, 4vh, 52px);
+  width: calc(50% - clamp(16px, 2vw, 34px));
+  height: 75vh;
+  z-index: 8;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(8px, 1vw, 14px);
+}
+.machine-slot { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: clamp(6px, 0.9vw, 10px); height: 100%; }
+.machine-float {
+  position: relative;
+  width: auto;
+  max-width: 100%;
+  height: calc(100% - clamp(34px, 6vh, 68px));
+  display: flex; align-items: flex-end; justify-content: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.machine-float img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 42px rgba(0,0,0,0.82));
+}
+.mf-1 { animation: floatM1 7s ease-in-out infinite; }
+.mf-2 { animation: floatM2 8s ease-in-out infinite; }
+.mf-3 { animation: floatM3 7.6s ease-in-out infinite; }
+.ms-1 { transform: translateY(24px); }
+.ms-2 { transform: translateY(0); }
+.ms-3 { transform: translateY(16px); }
+@keyframes floatM1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes floatM2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes floatM3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+.right-fade {
+  position: absolute; top: 0; right: 0; width: 120px; height: 100%;
+  background: linear-gradient(to left, rgba(10,10,10,0.6), transparent);
+  z-index: 6; pointer-events: none;
+}
+.bottom-fade {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(to top, rgba(10,10,10,0.7), transparent);
+  z-index: 7; pointer-events: none;
+}
+
+/* ── Machine Pills ── */
+.machine-pill {
+  position: relative; z-index: 10;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px); border-radius: 100px;
+  padding: clamp(6px, 0.8vw, 8px) clamp(8px, 1vw, 12px);
+  font-size: clamp(8px, 0.62vw, 10px); font-weight: 600;
+  letter-spacing: 1.2px; text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  display: flex; align-items: center; gap: 8px; white-space: nowrap;
+}
+.mpp-1 { animation: floatPillA 7.4s ease-in-out infinite; }
+.mpp-2 { animation: floatPillB 8.2s ease-in-out infinite; }
+.mpp-3 { animation: floatPillC 6.8s ease-in-out infinite; }
+.pill-dot { width: 6px; height: 6px; border-radius: 50%; }
+@keyframes floatPillA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+@keyframes floatPillB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
+@keyframes floatPillC { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+/* ── Content ── */
+.content {
+  position: relative; z-index: 10;
+  padding: clamp(120px, 14vh, 160px) clamp(24px, 5vw, 72px) clamp(120px, 14vh, 160px);
+  max-width: min(48vw, 640px);
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px; padding: 6px 16px; margin-bottom: 28px; backdrop-filter: blur(8px);
+}
+.badge-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: linear-gradient(135deg, #c84b9e, #e8883a);
+  box-shadow: 0 0 10px rgba(200,75,158,0.8);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
+.badge span { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); }
+
+.headline { font-size: 76px; font-weight: 900; line-height: 1.0; letter-spacing: -3px; color: white; margin-bottom: 24px; }
+.headline .line-2 {
+  background: linear-gradient(90deg, #c84b9e 0%, #e8883a 50%, #f5c842 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.subtext {
+  font-size: 18px; font-weight: 300; line-height: 1.65;
+  color: rgba(255,255,255,0.55); max-width: 480px; margin-bottom: 44px; letter-spacing: 0.2px;
+}
+
+.cta-row { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, #c84b9e, #e8883a); color: white;
+  font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700;
+  letter-spacing: 0.5px; padding: 16px 32px; border-radius: 100px;
+  text-decoration: none; box-shadow: 0 8px 32px rgba(200,75,158,0.35);
+  border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,75,158,0.5); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  color: white; font-family: 'Outfit', sans-serif;
+  font-size: 15px; font-weight: 600;
+  border: 1px solid rgba(200,75,158,0.45);
+  background: rgba(200,75,158,0.14);
+  border-radius: 100px;
+  padding: 12px 20px;
+  box-shadow: 0 8px 24px rgba(200,75,158,0.18);
+  cursor: pointer; letter-spacing: 0.3px; transition: color 0.2s; white-space: nowrap;
+}
+.btn-secondary:hover {
+  color: white;
+  background: rgba(200,75,158,0.22);
+  border-color: rgba(200,75,158,0.65);
+}
+
+.arrow {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); font-size: 14px;
+}
+
+/* ── Stats ── */
+.stats {
+  position: absolute; bottom: 44px; left: 72px;
+  z-index: 10; display: flex; gap: 48px;
+}
+.stat { display: flex; flex-direction: column; gap: 4px; }
+.stat-number { font-size: 28px; font-weight: 800; color: white; letter-spacing: -1px; }
+.stat-label { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+.stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); align-self: center; }
+
+/* ════════════════════════════════════════════════════
+   TABLET  (768px – 1023px)
+════════════════════════════════════════════════════ */
+@media (max-width: 1023px) {
+  .nav { padding: 24px 40px; }
+  .content { padding: 140px 40px 140px; max-width: min(56vw, 520px); }
+  .headline { font-size: 58px; letter-spacing: -2px; }
+  .subtext { font-size: 16px; }
+
+  .machines { width: calc(50% - 18px); right: 10px; bottom: clamp(28px, 4vh, 48px); height: 75vh; gap: 10px; }
+  .machine-float { height: calc(100% - clamp(30px, 5vh, 56px)); }
+  .machine-pill { font-size: 9px; padding: 7px 10px; }
+  .ms-1 { transform: translateY(20px); }
+  .ms-3 { transform: translateY(14px); }
+
+  .stats { left: 40px; bottom: 36px; gap: 32px; }
+  .stat-number { font-size: 24px; }
+}
+
+/* ════════════════════════════════════════════════════
+   MOBILE  (≤767px)
+════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+  .hero { min-height: 100svh; }
+
+  /* Nav */
+  .nav { padding: 20px 24px; }
+  .logo-text { font-size: 18px; }
+  .logo-icon { width: 30px; height: 30px; }
+  .nav-contact { font-size: 12px; padding: 8px 14px; gap: 6px; }
+  /* Orbs – smaller */
+  .orb-1 { width: 300px; height: 300px; top: -60px; right: -60px; }
+  .orb-2 { width: 280px; height: 280px; bottom: -60px; right: 20px; }
+  .orb-3 { width: 200px; height: 200px; top: 60px; left: -60px; }
+
+  /* Content stacked */
+  .content {
+    position: relative; z-index: 10;
+    padding: 100px 24px 430px;
+    max-width: min(100%, 540px);
+  }
+  .headline { font-size: 42px; letter-spacing: -2px; margin-bottom: 16px; }
+  .subtext { font-size: 15px; margin-bottom: 32px; max-width: 100%; }
+  .badge { margin-bottom: 20px; }
+  .badge span { font-size: 10px; letter-spacing: 1.5px; }
+
+  .cta-row { gap: 12px; }
+  .btn-primary { font-size: 14px; padding: 14px 24px; }
+  .btn-secondary { font-size: 14px; }
+
+  /* Floating machines */
+  .machines {
+    top: auto; left: 14px; right: 14px; bottom: 68px;
+    width: auto; height: 75vh;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .machine-float { height: calc(100% - 44px); }
+  .machine-pill { font-size: 8px; padding: 6px 8px; letter-spacing: 1px; gap: 6px; }
+  .pill-dot { width: 5px; height: 5px; }
+  .ms-1 { transform: translateY(10px); }
+  .ms-2 { transform: translateY(0); }
+  .ms-3 { transform: translateY(8px); }
+
+  /* Fades */
+  .right-fade { display: none; }
+  .bottom-fade { height: 60px; }
+
+  /* Stats row */
+  .stats {
+    position: absolute; left: 24px; right: 24px; bottom: 18px;
+    padding: 14px 0 0;
+    gap: 0;
+    justify-content: space-around;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    z-index: 10;
+  }
+  .stat-number { font-size: 22px; }
+  .stat-label { font-size: 9px; letter-spacing: 1.5px; }
+  .stat-divider { width: 1px; height: 30px; }
+}
+
+/* ════════════════════════════════════════════════════
+   SMALL MOBILE  (≤399px)
+════════════════════════════════════════════════════ */
+@media (max-width: 399px) {
+  .headline { font-size: 36px; letter-spacing: -1.5px; }
+  .nav-contact span:first-child { display: none; }
+  .content { padding-bottom: 430px; }
+  .machines { left: 10px; right: 10px; bottom: 64px; gap: 6px; height: 75vh; }
+  .machine-float { height: calc(100% - 40px); }
+  .machine-pill { font-size: 7px; padding: 5px 6px; letter-spacing: 0.8px; gap: 4px; }
+  .pill-dot { width: 4px; height: 4px; }
+  .ms-1 { transform: translateY(6px); }
+  .ms-3 { transform: translateY(6px); }
+  .stats { left: 16px; right: 16px; bottom: 14px; }
+}
+
+/* ════════════════════════════════════════════════════
+   MODALS  (base)
+════════════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(16px);
+  z-index: 200; display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  padding: 16px;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+.modal {
+  background: #111116; border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px; padding: 40px; width: min(560px, 100%);
+  max-height: 90vh; overflow-y: auto;
+  position: relative;
+  transform: translateY(24px) scale(0.97);
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,75,158,0.08);
+}
+.modal-overlay.open .modal { transform: translateY(0) scale(1); }
+
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5); font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+}
+.modal-close:hover { background: rgba(255,255,255,0.1); color: white; }
+
+.modal-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(200,75,158,0.1); border: 1px solid rgba(200,75,158,0.2);
+  border-radius: 100px; padding: 5px 14px; margin-bottom: 16px;
+}
+.modal-badge span { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #d46db3; }
+
+.modal h2 { font-size: 28px; font-weight: 800; color: white; letter-spacing: -1px; margin-bottom: 8px; line-height: 1.15; }
+.modal > p { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 28px; line-height: 1.6; }
+
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-full { margin-bottom: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+.form-group input, .form-group select, .form-group textarea {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 12px 15px; font-family: 'Outfit', sans-serif;
+  font-size: 14px; color: white; outline: none;
+  transition: border-color 0.2s, background 0.2s; width: 100%;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: rgba(200,75,158,0.5); background: rgba(255,255,255,0.06);
+}
+.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.18); }
+.form-group select option { background: #1a1a22; }
+.form-group textarea { resize: none; height: 80px; }
+.field-error { border-color: rgba(200,75,158,0.6) !important; background: rgba(200,75,158,0.04) !important; }
+
+.modal-submit {
+  width: 100%; padding: 15px;
+  background: linear-gradient(135deg, #c84b9e, #e8883a);
+  border: none; border-radius: 100px; color: white;
+  font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700;
+  cursor: pointer; margin-top: 6px; box-shadow: 0 8px 32px rgba(200,75,158,0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.modal-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,75,158,0.45); }
+
+.success-state { display: none; text-align: center; padding: 16px 0; }
+.success-icon {
+  width: 68px; height: 68px; border-radius: 50%;
+  background: linear-gradient(135deg, #c84b9e, #e8883a);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 22px; font-size: 30px; box-shadow: 0 0 40px rgba(200,75,158,0.4);
+}
+.success-state h3 { font-size: 26px; font-weight: 800; color: white; margin-bottom: 12px; }
+.success-state p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; }
+
+/* Modal responsive */
+@media (max-width: 600px) {
+  .modal { padding: 28px 20px; border-radius: 20px; }
+  .modal h2 { font-size: 24px; }
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Solutions modal ── */
+.solutions-modal { width: min(740px, 100%); }
+.solutions-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 24px; }
+.solution-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px; padding: 20px 16px; cursor: pointer; transition: all 0.25s;
+}
+.solution-card:hover { transform: translateY(-4px); }
+.card-pink:hover { background: rgba(200,75,158,0.07); border-color: rgba(200,75,158,0.3); }
+.card-orange:hover { background: rgba(232,136,58,0.07); border-color: rgba(232,136,58,0.3); }
+.card-purple:hover { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.3); }
+.solution-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 14px;
+}
+.icon-pink { background: rgba(200,75,158,0.15); }
+.icon-orange { background: rgba(232,136,58,0.15); }
+.icon-purple { background: rgba(124,58,237,0.15); }
+.solution-card h3 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 7px; }
+.solution-card p { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.5; margin-bottom: 12px; }
+.solution-features { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.solution-features li { font-size: 11px; color: rgba(255,255,255,0.45); display: flex; align-items: center; gap: 7px; }
+.solution-features li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+.feat-pink::before { background: #c84b9e; }
+.feat-orange::before { background: #e8883a; }
+.feat-purple::before { background: #7c3aed; }
+.solution-cta { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+.solution-cta span { font-size: 11px; font-weight: 600; }
+.cta-pink { color: #c84b9e; } .cta-orange { color: #e8883a; } .cta-purple { color: #7c3aed; }
+.sol-arrow { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; }
+.arrow-pink { background: rgba(200,75,158,0.2); } .arrow-orange { background: rgba(232,136,58,0.2); } .arrow-purple { background: rgba(124,58,237,0.2); }
+.solutions-footer {
+  margin-top: 20px; padding: 16px 20px;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.solutions-footer p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+.solutions-footer strong { color: white; }
+.footer-btn {
+  flex-shrink: 0; padding: 11px 24px;
+  background: linear-gradient(135deg, #c84b9e, #e8883a); border: none;
+  border-radius: 100px; color: white; font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap;
+}
+.footer-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(200,75,158,0.4); }
+
+@media (max-width: 600px) {
+  .solutions-grid { grid-template-columns: 1fr; }
+  .solutions-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .footer-btn { width: 100%; text-align: center; justify-content: center; display: flex; }
+}
+
+/* ── Contact modal ── */
+.contact-modal { width: min(600px, 100%); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-bottom: 16px; }
+.contact-card {
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px; padding: 20px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: all 0.25s; text-decoration: none; cursor: pointer;
+}
+.contact-card:hover { transform: translateY(-3px); }
+.contact-card.card-email:hover { background: rgba(200,75,158,0.06); border-color: rgba(200,75,158,0.25); }
+.contact-card.card-phone:hover { background: rgba(232,136,58,0.06); border-color: rgba(232,136,58,0.25); }
+.contact-card.card-location { grid-column: 1 / -1; flex-direction: row; align-items: flex-start; gap: 16px; cursor: default; }
+.contact-card.card-location:hover { background: rgba(124,58,237,0.05); border-color: rgba(124,58,237,0.2); transform: none; }
+.contact-card-icon {
+  width: 44px; height: 44px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
+}
+.icon-email { background: rgba(200,75,158,0.15); }
+.icon-phone { background: rgba(232,136,58,0.15); }
+.icon-location { background: rgba(124,58,237,0.15); }
+.contact-card-body { display: flex; flex-direction: column; gap: 4px; }
+.contact-card-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+.contact-card-value { font-size: 14px; font-weight: 600; color: white; line-height: 1.3; }
+.contact-card-sub { font-size: 11.5px; color: rgba(255,255,255,0.35); line-height: 1.5; margin-top: 2px; }
+.contact-card-action { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; margin-top: 6px; }
+.action-email { color: #c84b9e; } .action-phone { color: #e8883a; }
+.contact-hours {
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; gap: 12px;
+}
+.contact-hours-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.hours-icon {
+  width: 34px; height: 34px; border-radius: 10px;
+  background: rgba(200,75,158,0.12);
+  display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;
+}
+.hours-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.hours-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+.hours-value { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7); white-space: normal; line-height: 1.4; }
+.hours-badge {
+  display: flex; align-items: center; gap: 6px;
+  background: rgba(60,185,106,0.1); border: 1px solid rgba(60,185,106,0.2);
+  border-radius: 100px; padding: 5px 12px; flex-shrink: 0;
+}
+.hours-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #3cb96a; box-shadow: 0 0 6px #3cb96a; animation: pulse 2s ease-in-out infinite; }
+.hours-badge span { font-size: 11px; font-weight: 600; color: #3cb96a; }
+.contact-cta-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(135deg, rgba(200,75,158,0.08), rgba(232,136,58,0.06));
+  border: 1px solid rgba(200,75,158,0.18); border-radius: 14px; padding: 16px 20px; gap: 14px;
+}
+.contact-cta-bar p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.contact-cta-bar strong { color: white; }
+.cta-bar-btn {
+  flex-shrink: 0; padding: 10px 20px;
+  background: linear-gradient(135deg, #c84b9e, #e8883a); border: none;
+  border-radius: 100px; color: white; font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 700; cursor: pointer; transition: transform 0.2s; white-space: nowrap;
+}
+.cta-bar-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,75,158,0.4); }
+
+@media (max-width: 600px) {
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-card.card-location { flex-direction: column; }
+  .contact-hours { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .contact-cta-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .cta-bar-btn { width: 100%; text-align: center; }
+}
+</style>
 </head>
-
 <body>
+<div class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grid-lines"></div>
 
-    <!-- Navigation Bar -->
-    <nav id="main-nav">
-        <div class="container">
-            <a href="#hero" class="logo">
-                <!--<img src="./images/logo.ico" alt="brand-logo">-->
-                Savor<span>Smart</span>
-            </a>
-            <div class="menu-toggle" id="mobile-menu">
-                ☰
-            </div>
-            <ul id="nav-links">
-                <li><a href="#hero" class="active">Home</a></li>
-                <li><a href="#solutions">Solutions</a></li>
-                <li><a href="#why-us">Why Us</a></li>
-                <li><a href="#how-it-works">How It Works</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+  <!-- ── Navigation ── -->
+  <nav class="nav">
+    <div class="logo">
+      <div class="logo-icon">
+        <div class="logo-dot"></div>
+        <div class="logo-dot" style="opacity:0.7"></div>
+        <div class="logo-dot" style="opacity:0.7"></div>
+        <div class="logo-dot"></div>
+      </div>
+      <span class="logo-text">SavorSmart</span>
+    </div>
+    <button class="nav-contact" onclick="openModal('contact-modal')">📬 Contact Us</button>
+  </nav>
+
+  <!-- ── Main content ── -->
+  <div class="content">
+    <div class="badge"><div class="badge-dot"></div><span>Free Building Amenities Program</span></div>
+    <h1 class="headline">Add Free<br><span class="line-2">Amenities</span></h1>
+    <p class="subtext">We install, maintain, and fully stock modern amenity stations in your building at no cost to you. Your residents and teams get convenient 24/7 access, while we handle everything.</p>
+    <div class="cta-row">
+      <button class="btn-primary" onclick="openModal('quote-modal')">Get It For Your Building<span class="arrow">→</span></button>
+      <button class="btn-secondary" onclick="openModal('solutions-modal')">See Solutions <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- ── Stats ── -->
+  <div class="stats">
+    <div class="stat"><span class="stat-number">$0</span><span class="stat-label">Cost To Building</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><span class="stat-number">24/7</span><span class="stat-label">Amenity Access</span></div>
+    <div class="stat-divider"></div>
+    <div class="stat"><span class="stat-number">Full</span><span class="stat-label">Managed Service</span></div>
+  </div>
+
+  <!-- ── Vending machines ── -->
+  <div class="machines">
+    <div class="machine-slot ms-1">
+      <div class="machine-pill mpp-1"><div class="pill-dot" style="background:#c84b9e;box-shadow:0 0 8px #c84b9e;"></div>Zero Cost To Property</div>
+      <div class="machine-float mf-1"><img src="./images/new/new1.png" alt="SavorSmart vending machine"/></div>
+    </div>
+    <div class="machine-slot ms-2">
+      <div class="machine-pill mpp-2"><div class="pill-dot" style="background:#e8883a;box-shadow:0 0 8px #e8883a;"></div>We Install &amp; Maintain</div>
+      <div class="machine-float mf-2"><img src="./images/new/new2.png" alt="SavorSmart vending machine"/></div>
+    </div>
+    <div class="machine-slot ms-3">
+      <div class="machine-pill mpp-3"><div class="pill-dot" style="background:#7c3aed;box-shadow:0 0 8px #7c3aed;"></div>We Stock Everything</div>
+      <div class="machine-float mf-3"><img src="./images/new/new3.png" alt="SavorSmart vending machine"/></div>
+    </div>
+  </div>
+  <div class="right-fade"></div>
+  <div class="bottom-fade"></div>
+</div>
+
+<!-- ══════════════════════════════
+     QUOTE MODAL
+══════════════════════════════ -->
+<div class="modal-overlay" id="quote-modal" onclick="overlayClick(event,'quote-modal')">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('quote-modal')">✕</button>
+    <div id="quote-form">
+      <div class="modal-badge"><span>🎁 Zero Cost to You</span></div>
+      <h2>Get Your Free<br>Building Amenities Plan</h2>
+      <p>Tell us about your property and we’ll design a fully managed amenities setup. We install, maintain, and stock it at no cost to your building.</p>
+      <div class="form-grid">
+        <div class="form-group"><label>Full Name *</label><input id="q-name" type="text" placeholder="Jane Smith"/></div>
+        <div class="form-group"><label>Company Name</label><input id="q-company" type="text" placeholder="Acme Corp"/></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Email Address *</label><input id="q-email" type="email" placeholder="jane@company.com"/></div>
+        <div class="form-group"><label>Phone Number</label><input id="q-phone" type="tel" placeholder="+1 (647) 000-0000"/></div>
+      </div>
+      <div class="form-full">
+        <div class="form-group">
+          <label>Location Type *</label>
+          <select id="q-type">
+            <option value="" disabled selected>Select your location type</option>
+            <option>Office Building</option>
+            <option>Warehouse / Factory</option>
+            <option>Apartment Complex</option>
+            <option>Gym / Fitness Centre</option>
+            <option>Hospital / Medical</option>
+            <option>School / University</option>
+            <option>Other</option>
+          </select>
         </div>
-    </nav>
+      </div>
+      <div class="form-full">
+        <div class="form-group"><label>Additional Details</label><textarea id="q-msg" placeholder="Number of employees, floors, current vending situation..."></textarea></div>
+      </div>
+      <button class="modal-submit" id="quote-submit-btn" onclick="submitQuote()">Request Free Consultation <span style="font-size:16px">→</span></button>
+      <p id="quote-error" style="display:none;margin-top:10px;font-size:12px;color:#ff9b9b;">Could not send right now. Please try again in a moment.</p>
+    </div>
+    <div class="success-state" id="quote-success">
+      <div class="success-icon">✓</div>
+      <h3>You're All Set!</h3>
+      <p>Our team will contact you within <strong style="color:white">24 hours</strong> to discuss your free building amenities plan.</p>
+      <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,0.35)">Questions? Call <strong style="color:#c84b9e">+1 (647) 249 4846</strong> or email <strong style="color:#c84b9e">info@savorsmart.com</strong></p>
+    </div>
+  </div>
+</div>
 
-    <!-- Hero Section -->
-    <section id="hero">
-        <div class="container">
-            <br>
-            <br>
-            <br>
-            <h1>Fresh & Smart Vending for Your Workplace</h1>
-            <p>Savor Smart offers free installation and full management of AI-powered vending machines and micro marts,
-                stocked with choices your team will love.</p>
-            <a href="#contact" class="btn">Get a Free Quote</a>
+<!-- ══════════════════════════════
+     SOLUTIONS MODAL
+══════════════════════════════ -->
+<div class="modal-overlay" id="solutions-modal" onclick="overlayClick(event,'solutions-modal')">
+  <div class="modal solutions-modal">
+    <button class="modal-close" onclick="closeModal('solutions-modal')">✕</button>
+    <div class="modal-badge"><span>⚙️ Amenity Options</span></div>
+    <h2>Free Amenities for Buildings</h2>
+    <p>Every option is fully managed and zero-cost to your property. Choose the amenity setup that best fits your residents, tenants, or staff.</p>
+    <div class="solutions-grid">
+      <div class="solution-card card-pink" onclick="pickSolution()">
+        <div class="solution-icon icon-pink">🤖</div>
+        <h3>AI-Powered Vending</h3>
+        <p>Smart machines that learn preferences and auto-optimize stock in real time.</p>
+        <ul class="solution-features">
+          <li class="feat-pink">Intelligent stock management</li>
+          <li class="feat-pink">Contactless &amp; cashless payment</li>
+          <li class="feat-pink">Personalized recommendations</li>
+          <li class="feat-pink">Energy-efficient technology</li>
+        </ul>
+        <div class="solution-cta"><span class="cta-pink">Get This Solution</span><div class="sol-arrow arrow-pink">→</div></div>
+      </div>
+      <div class="solution-card card-orange" onclick="pickSolution()">
+        <div class="solution-icon icon-orange">🏪</div>
+        <h3>Micro Markets</h3>
+        <p>A full self-serve market in your breakroom — fresh food, snacks &amp; drinks 24/7.</p>
+        <ul class="solution-features">
+          <li class="feat-orange">24/7 access to diverse products</li>
+          <li class="feat-orange">Secure self-checkout kiosk</li>
+          <li class="feat-orange">Customizable to your space</li>
+          <li class="feat-orange">Promotes employee well-being</li>
+        </ul>
+        <div class="solution-cta"><span class="cta-orange">Get This Solution</span><div class="sol-arrow arrow-orange">→</div></div>
+      </div>
+      <div class="solution-card card-purple" onclick="pickSolution()">
+        <div class="solution-icon icon-purple">✨</div>
+        <h3>Specialized Vending</h3>
+        <p>Custom solutions — age-verified products, premium coffee, fresh food combos.</p>
+        <ul class="solution-features">
+          <li class="feat-purple">Age-verified product sales</li>
+          <li class="feat-purple">Fresh bean-to-cup coffee</li>
+          <li class="feat-purple">Hot &amp; cold beverages</li>
+          <li class="feat-purple">Non-traditional items</li>
+        </ul>
+        <div class="solution-cta"><span class="cta-purple">Get This Solution</span><div class="sol-arrow arrow-purple">→</div></div>
+      </div>
+    </div>
+    <div class="solutions-footer">
+      <p>All solutions include <strong>free installation, stocking &amp; maintenance</strong> — zero cost to your business, ever.</p>
+      <button class="footer-btn" onclick="switchToQuote()">Get a Free Quote →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     CONTACT MODAL
+══════════════════════════════ -->
+<div class="modal-overlay" id="contact-modal" onclick="overlayClick(event,'contact-modal')">
+  <div class="modal contact-modal">
+    <button class="modal-close" onclick="closeModal('contact-modal')">✕</button>
+    <div class="modal-badge"><span>📬 Get In Touch</span></div>
+    <h2>Contact SavorSmart</h2>
+    <p>We respond fast. Reach us by email, phone, or come visit — we serve businesses across the GTA.</p>
+    <div class="contact-grid">
+      <a class="contact-card card-email" href="mailto:info@savorsmart.com">
+        <div class="contact-card-icon icon-email">✉️</div>
+        <div class="contact-card-body">
+          <span class="contact-card-label">Email Us</span>
+          <span class="contact-card-value">info@savorsmart.com</span>
+          <span class="contact-card-sub">We reply within a few hours on business days</span>
+          <span class="contact-card-action action-email">Open email →</span>
         </div>
-    </section>
-
-    <!-- Solutions Section -->
-    <section id="solutions" class="bg-grey"> <!-- Using grey background for this section -->
-        <div class="container">
-            <h2 class="section-title">Our Modern Vending & Mart Solutions</h2>
-            <p class="solutions-intro">Discover how our range of services can enhance your employee benefits and
-                workplace convenience, all at no cost to you.</p>
-
-            <div class="solution-item">
-                <div class="solution-image">
-                    <img src="./images/ai1.jpg" alt="AI Powered Vending Machine in an office">
-                </div>
-                <div class="solution-content">
-                    <h3>AI-Powered Vending</h3>
-                    <p class="description">Our smart vending machines utilize AI for optimized inventory, popular
-                        product suggestions, and seamless cashless transactions.</p>
-                    <ul>
-                        <li>Intelligent stock management</li>
-                        <li>Contactless payment options</li>
-                        <li>Personalized recommendations</li>
-                        <li>Energy-efficient technology</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary">Inquire About AI Vending</a>
-                </div>
-            </div>
-
-            <div class="solution-item">
-                <div class="solution-image">
-                    <img src="./images/mm1.png" alt="Well-stocked Micro Mart">
-                </div>
-                <div class="solution-content">
-                    <h3>Micro Markets</h3>
-                    <p class="description">A custom-designed, self-service market in your breakroom, offering a wide
-                        selection of fresh foods, healthy snacks, and beverages.</p>
-                    <ul>
-                        <li>24/7 access to diverse products</li>
-                        <li>Secure, easy self-checkout</li>
-                        <li>Customizable to fit your space</li>
-                        <li>Promotes employee well-being</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary">Explore Micro Markets</a>
-                </div>
-            </div>
-
-            <div class="solution-item">
-                <div class="solution-image">
-                    <!-- Replace with appropriate image for specialized vending -->
-                    <img src="images/ven2.png" alt="Specialized Vending Machine">
-                </div>
-                <div class="solution-content">
-                    <h3>Specialized Vending</h3>
-                    <p class="description">We provide tailored vending solutions, including secure machines with age
-                        verification and premium coffee stations.</p>
-                    <ul>
-                        <li>Age-verified product sales</li>
-                        <li>Fresh bean-to-cup coffee</li>
-                        <li>Fresh food and snack combinations</li>
-                        <li>Hot and cold beverages</li>
-                        <li>Machines for non-traditional items</li>
-                        <li>Custom solutions for unique needs</li>
-                    </ul>
-                    <a href="#contact" class="btn btn-secondary">Discuss Your Needs</a>
-                </div>
-            </div>
-
+      </a>
+      <a class="contact-card card-phone" href="tel:+16472494846">
+        <div class="contact-card-icon icon-phone">📞</div>
+        <div class="contact-card-body">
+          <span class="contact-card-label">Call Us</span>
+          <span class="contact-card-value">+1 (647) 249-4846</span>
+          <span class="contact-card-sub">Mon – Fri 9 AM – 6 PM · Sat 10 AM – 3 PM</span>
+          <span class="contact-card-action action-phone">Call now →</span>
         </div>
-    </section>
-
-    <!-- Why Us Section -->
-    <section id="why-us" class="bg-pale-green"> <!-- Pale green background for Why Us -->
-        <div class="container">
-            <h2 class="section-title">The Savor Smart Advantage</h2>
-            <div class="why-us-grid">
-                <div class="why-us-item">
-                    <div class="icon">🎁</div>
-                    <h4>Absolutely Free Service</h4>
-                    <p>No costs for machines, installation, stocking, or maintenance. It's all on us.</p>
-                </div>
-                <div class="why-us-item">
-                    <div class="icon">⚙️</div>
-                    <h4>Latest Technology</h4>
-                    <p>Smart AI, cashless systems, and reliable, modern vending equipment.</p>
-                </div>
-                <div class="why-us-item">
-                    <div class="icon">😊</div>
-                    <h4>Happier Employees</h4>
-                    <p>Boost morale with convenient access to a wide variety of quality refreshments.</p>
-                </div>
-                <div class="why-us-item">
-                    <div class="icon">🤝</div>
-                    <h4>Full Management</h4>
-                    <p>We handle everything, offering you a completely hassle-free experience.</p>
-                </div>
-            </div>
+      </a>
+      <div class="contact-card card-location">
+        <div class="contact-card-icon icon-location">📍</div>
+        <div class="contact-card-body">
+          <span class="contact-card-label">Service Area</span>
+          <span class="contact-card-value">Greater Toronto Area, Ontario, Canada</span>
+          <span class="contact-card-sub">Serving Toronto, Mississauga, Brampton, Markham, Vaughan, Oakville &amp; surrounding regions. Free on-site assessments available — we come to you.</span>
         </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="bg-grey"> <!-- Grey background for How It Works -->
-        <div class="container">
-            <h2 class="section-title">Our Simple Setup Process</h2>
-            <div class="how-it-works-steps">
-                <div class="step">
-                    <div class="step-number-container">1</div>
-                    <h4>Consultation</h4>
-                    <p>We'll discuss your specific needs and assess your location.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number-container">2</div>
-                    <h4>Custom Plan</h4>
-                    <p>You receive a tailored proposal with our recommended solutions.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number-container">3</div>
-                    <h4>Installation</h4>
-                    <p>Our expert team sets up your new system efficiently.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number-container">4</div>
-                    <h4>Enjoy Service</h4>
-                    <p>We manage all stocking, maintenance, and support.</p>
-                </div>
-            </div>
+      </div>
+    </div>
+    <div class="contact-hours">
+      <div class="contact-hours-left">
+        <div class="hours-icon">🕐</div>
+        <div class="hours-text">
+          <span class="hours-label">Business Hours (EST)</span>
+          <span class="hours-value">Mon – Fri 9:00 AM – 6:00 PM &nbsp;·&nbsp; Sat 10:00 AM – 3:00 PM &nbsp;·&nbsp; Sun Closed</span>
         </div>
-    </section>
+      </div>
+      <div class="hours-badge" id="hours-badge">
+        <div class="hours-badge-dot" id="hours-dot"></div>
+        <span id="hours-status">Now Open</span>
+      </div>
+    </div>
+    <div class="contact-cta-bar">
+      <p>Ready to upgrade your space? <strong>Book a free site assessment</strong> — no commitment needed.</p>
+      <button class="cta-bar-btn" onclick="switchContactToQuote()">Get Free Quote →</button>
+    </div>
+  </div>
+</div>
 
-    <!-- About Snippet Section -->
-    <section id="about-snippet">
-        <div class="container">
-            <h2>About Savor Smart</h2>
-            <p>At Savor Smart, we are passionate about revolutionizing workplace amenities. We provide cutting-edge,
-                fully managed vending and micro market solutions at zero cost to businesses. Our commitment to
-                innovation, quality products, and exceptional service makes us the ideal partner for companies looking
-                to enhance their employee experience and foster a more productive environment.</p>
-            <a href="#contact" class="btn">Learn More About Us</a>
-        </div>
-    </section>
+<script>
+  function resetQuoteFormState() {
+    const form = document.getElementById('quote-form');
+    const success = document.getElementById('quote-success');
+    const submitBtn = document.getElementById('quote-submit-btn');
+    const errorMsg = document.getElementById('quote-error');
+    if (!form || !success) return;
 
-    <!-- Contact Section -->
-    <section id="contact" class="bg-grey"> <!-- Pale green background for Contact -->
-        <div class="container">
-            <h2 class="section-title">Get Your Free Vending Solution Today!</h2>
-            <div class="contact-form-container">
-                <h3>Request a No-Obligation Consultation</h3>
-                <form id="contactForm" action="https://api.staticforms.xyz/submit" method="POST">
-                    <!-- Required: Your Static Forms API key -->
-                    <input type="hidden" name="apiKey" value="sf_8f3a6jec2cbgb4m2dl8e4g56">
+    form.style.display = 'block';
+    success.style.display = 'none';
+    if (errorMsg) errorMsg.style.display = 'none';
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+      submitBtn.innerHTML = 'Request Free Consultation <span style="font-size:16px">→</span>';
+    }
+  }
 
-                    <!-- Enable reply-to functionality -->
-                    <input type="hidden" name="replyTo" value="@">
-                    <!-- Anti-spam honeypot field -->
-                    <input type="text" name="honeypot" style="display: none" tabindex="-1" autocomplete="off">
+  function openModal(id) {
+    if (id === 'quote-modal') resetQuoteFormState();
+    document.getElementById(id).classList.add('open');
+  }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+  function overlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+  });
 
-                    <div class="form-group"> <label for="name">Full Name:</label> <input type="text" id="name"
-                            name="name" required> </div>
-                    <div class="form-group"> <label for="company">Company Name:</label> <input type="text" id="company"
-                            name="company" required> </div>
-                    <div class="form-group"> <label for="email">Email Address:</label> <input type="email" id="email"
-                            name="email" required> </div>
-                    <div class="form-group"> <label for="phone">Phone Number:</label> <input type="tel" id="phone"
-                            name="phone"> </div>
-                    <div class="form-group"> <label for="message">Message (Optional):</label> <textarea id="message"
-                            name="message" rows="3"></textarea> </div>
-                    <!--<div id="formMessage" style="display:none; color: var(--dark-green);">Thank you! We have recieved your message.</div>-->
-                    <button type="submit" class="btn" style="width:100%;">Submit Request</button>
-                    <!-- reCAPTCHA integration -->
-                    <!--<div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
-                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
-                    <!-- Optional redirect URLs -->
-                    <!--    <input type="hidden" name="redirectTo" value="https://savorsmart.ca">-->
-                </form>
-            </div>
-            <div class="contact-info">
-                <p>Or call us at <a href="tel:+1800SAVORSMART">(902) 809 6861</a> | Email: <a
-                        href="mailto:info@savorsmart.com">info@savorsmart.com</a></p>
-            </div>
-        </div>
-    </section>
+  async function submitQuote() {
+    let valid = true;
+    ['q-name','q-email','q-type'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) {
+        el.classList.add('field-error'); valid = false;
+        setTimeout(() => el.classList.remove('field-error'), 2500);
+      }
+    });
+    if (!valid) return;
 
-    <footer>
-        <div class="container" style="padding: 25px 15px;">
-            <p>© <span id="currentYear"></span> Savor Smart. Your Partner in Workplace Refreshments.</p>
-            <!--<p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>-->
-        </div>
-    </footer>
+    const submitBtn = document.getElementById('quote-submit-btn');
+    const errorMsg = document.getElementById('quote-error');
+    const originalBtnHtml = submitBtn.innerHTML;
+    errorMsg.style.display = 'none';
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = '0.75';
+    submitBtn.innerHTML = 'Sending...';
 
-    <script>
-        // Mobile Menu Toggle
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-        mobileMenu.addEventListener('click', () => navLinks.classList.toggle('active'));
-        document.querySelectorAll('#nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navLinks.classList.contains('active')) navLinks.classList.remove('active');
-            });
-        });
+    const payload = {
+      name: document.getElementById('q-name').value.trim(),
+      company: document.getElementById('q-company').value.trim(),
+      email: document.getElementById('q-email').value.trim(),
+      phone: document.getElementById('q-phone').value.trim(),
+      location_type: document.getElementById('q-type').value.trim(),
+      details: document.getElementById('q-msg').value.trim(),
+      source: 'SavorSmart Quote Modal'
+    };
 
-        // Active Nav Link Scrolling
-        const sections = document.querySelectorAll('section[id]'); // Ensure only sections with ID are selected
-        const navLiAnchors = document.querySelectorAll('nav ul li a');
-        window.addEventListener('scroll', () => {
-            let current = 'hero';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (pageYOffset >= (sectionTop - (window.innerHeight / 2.5))) {
-                    current = section.getAttribute('id');
-                }
-            });
-            navLiAnchors.forEach(a => {
-                a.classList.remove('active');
-                if (a.getAttribute('href').substring(1) === current) {
-                    a.classList.add('active');
-                }
-            });
-        });
+    try {
+      const res = await fetch('https://formspree.io/f/xaqpyqyy', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
 
-        // Set current year in footer
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+      if (!res.ok) throw new Error('Formspree request failed');
 
-        //Submit form 
-        const form = document.getElementById("contactForm");
-        //const message = document.getElementById("formMessage");
+      document.getElementById('quote-form').style.display = 'none';
+      document.getElementById('quote-success').style.display = 'block';
+    } catch (err) {
+      errorMsg.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '1';
+      submitBtn.innerHTML = originalBtnHtml;
+    }
+  }
 
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault(); // prevent page refresh
+  function pickSolution() { closeModal('solutions-modal'); setTimeout(() => openModal('quote-modal'), 280); }
+  function switchToQuote() { closeModal('solutions-modal'); setTimeout(() => openModal('quote-modal'), 280); }
+  function switchContactToQuote() { closeModal('contact-modal'); setTimeout(() => openModal('quote-modal'), 280); }
 
-            const formData = new FormData(form);
-            const response = await fetch(form.action, {
-                method: form.method,
-                body: formData,
-            });
-
-            if (response.ok) {
-                form.reset();
-                Swal.fire({
-                    title: "Success!",
-                    text: "We have recieved your message.",
-                    icon: "success",
-                    confirmButtonText: "OK",
-                    confirmButtonColor: "#139051" // green button
-                });
-            } else {
-                Swal.fire({
-                    title: "Oops!",
-                    text: "Something went wrong. Please try again.",
-                    icon: "error",
-                    confirmButtonText: "Retry",
-                    confirmButtonColor: "#139051" // green button
-                });
-            }
-        });
-    </script>
-
+  // Live open/closed badge
+  (function() {
+    const est = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Toronto' }));
+    const day = est.getDay(), h = est.getHours();
+    const isOpen = (day >= 1 && day <= 5 && h >= 9 && h < 18) || (day === 6 && h >= 10 && h < 15);
+    if (!isOpen) {
+      const badge = document.getElementById('hours-badge');
+      const dot   = document.getElementById('hours-dot');
+      const label = document.getElementById('hours-status');
+      badge.style.background    = 'rgba(255,90,90,0.1)';
+      badge.style.borderColor   = 'rgba(255,90,90,0.2)';
+      dot.style.background      = '#ff6464';
+      dot.style.boxShadow       = '0 0 6px #ff6464';
+      label.textContent         = 'Currently Closed';
+      label.style.color         = '#ff8888';
+    }
+  })();
+</script>
 </body>
-
 </html>

@@ -1,25 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Savor Smart - Premium AI Vending & Micro Mart Solutions</title>
+    <title>Savor Smart - Premium Vending & Micro Marts</title>
+    <link rel="icon" type="image/x-icon" href="images/logo/icon.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        /* --- Global Styles & Rich, Modern Palette --- */
+        /* --- Global Styles & Provided Green Palette --- */
         :root {
-            --bg-dark: #1A202C; /* Deep charcoal/navy */
-            --bg-light-contrast: #2D3748; /* Slightly lighter dark for cards/layers */
-            --text-primary: #F7FAFC; /* Off-white */
-            --text-secondary: #A0AEC0; /* Muted grey for less emphasis */
-            --accent-gradient: linear-gradient(135deg, #38B2AC 0%, #805AD5 100%); /* Teal to Purple */
-            --accent-solid-start: #38B2AC; /* Teal for solid accents */
-            --accent-solid-end: #805AD5; /* Purple for solid accents */
-            --font-primary: 'Poppins', 'Helvetica Neue', Arial, sans-serif; /* Modern, rounded sans-serif */
-            --shadow-strong: 0 10px 30px rgba(0, 0, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.2); /* Deeper shadows for 3D effect */
-            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.2);
+            --green: #139051;
+            --dark-green: #08372e;
+            --light-green: #c1febe;
+            --pale-green: #e0ffdf;
+            --grey-bg: #f6f6f6;
+            --brand-black: #000000;
+            --white: #FFFFFF;
+
+            /* Derived usage */
+            --text-primary-on-light: var(--dark-green);
+            /* Dark green text on light backgrounds */
+            --text-primary-on-dark: var(--white);
+            /* White text on dark green backgrounds */
+            --text-secondary-on-light: #4a5568;
+            /* A neutral grey for secondary text, can adjust if needed */
+
+            --bg-main: var(--white);
+            /* Main page background */
+            --bg-section-pale: var(--pale-green);
+            --bg-section-grey: var(--white);
+            --bg-footer: var(--dark-green);
+
+            --button-primary-bg: var(--green);
+            --button-primary-text: var(--white);
+            --button-secondary-border: var(--green);
+            --button-secondary-text: var(--green);
+            --button-secondary-hover-bg: var(--green);
+            --button-secondary-hover-text: var(--white);
+
+            --heading-color: var(--dark-green);
+            --accent-color: var(--green);
+
+            --font-primary: 'Nunito Sans', 'Helvetica Neue', Arial, sans-serif;
+            /* A modern, friendly sans-serif */
+            --shadow-card: 0 3px 10px rgba(0, 0, 0, 0.05);
+            --shadow-card-hover: 0 5px 15px rgba(0, 0, 0, 0.08);
+            --border-color-light: #e2e8f0;
+            /* Light border for cards/dividers */
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap');
 
         html {
             scroll-behavior: smooth;
@@ -29,456 +60,627 @@
             font-family: var(--font-primary);
             margin: 0;
             padding: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
+            background-color: var(--bg-main);
+            color: var(--text-primary-on-light);
             line-height: 1.7;
-            font-size: 17px; /* Slightly larger base font */
-            overflow-x: hidden; /* Prevent horizontal scroll from exaggerated shadows */
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            padding: 50px 20px;
+            padding: 60px 15px;
         }
 
-        h1, h2, h3, h4 {
-            color: var(--text-primary);
-            margin-bottom: 25px;
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--heading-color);
+            margin-top: 0;
+            margin-bottom: 15px;
             line-height: 1.3;
-            font-weight: 600;
+            font-weight: 800;
+            /* Bolder headings with Nunito Sans */
         }
 
-        h1 { font-size: 3em; text-shadow: 0 2px 5px rgba(0,0,0,0.3); }
-        h2 { font-size: 2.5em; }
-        h3 { font-size: 1.9em; }
+        h1 {
+            font-size: 2.5em;
+        }
+
+        h2 {
+            font-size: 2.1em;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            font-weight: 700;
+        }
 
         p {
-            margin-bottom: 20px;
-            color: var(--text-secondary);
-            font-weight: 300;
+            margin-top: 0;
+            margin-bottom: 1.2em;
+            color: var(--text-secondary-on-light);
         }
-        strong { font-weight: 500; color: var(--text-primary); }
 
         .btn {
             display: inline-block;
-            padding: 15px 35px;
-            background: var(--accent-gradient);
-            color: var(--text-primary);
+            padding: 12px 28px;
+            background-color: var(--button-primary-bg);
+            color: var(--button-primary-text);
             text-decoration: none;
-            border-radius: 50px; /* Pill shape for modern look */
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 6px;
+            font-weight: 700;
+            transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
             border: none;
             cursor: pointer;
-            font-size: 1.1em;
-            box-shadow: 0 5px 15px rgba(56, 178, 172, 0.3); /* Shadow matching accent */
+            font-size: 0.95em;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(19, 144, 81, 0.2);
         }
 
         .btn:hover {
-            transform: translateY(-3px) scale(1.03); /* More pronounced hover */
-            box-shadow: 0 8px 25px rgba(128, 90, 213, 0.4);
+            background-color: #107d46;
+            /* Slightly darker shade of main green */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(19, 144, 81, 0.3);
         }
 
         .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--accent-solid-start);
-            color: var(--accent-solid-start);
+            background-color: transparent;
+            border: 2px solid var(--button-secondary-border);
+            color: var(--button-secondary-text);
             box-shadow: none;
         }
+
         .btn-secondary:hover {
-            background: var(--accent-solid-start);
-            color: var(--text-primary);
-            box-shadow: 0 5px 15px rgba(56, 178, 172, 0.3);
+            background-color: var(--button-secondary-hover-bg);
+            color: var(--button-secondary-hover-text);
+            border-color: var(--button-secondary-hover-bg);
         }
 
         /* --- Navigation --- */
         nav {
-            background-color: rgba(26, 32, 44, 0.85); /* Slightly transparent dark */
-            backdrop-filter: blur(10px); /* Glassmorphism effect */
-            -webkit-backdrop-filter: blur(10px);
-            padding: 20px 0;
+            background-color: var(--bg-main);
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.25);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid var(--border-color-light);
         }
 
         nav .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
-            max-width: 1300px;
+            padding-top: 0;
+            padding-bottom: 0;
         }
 
         nav .logo {
-            font-size: 2em;
-            font-weight: 700;
-            color: var(--text-primary);
+            font-size: 1.8em;
+            font-weight: 800;
+            color: var(--brand-black);
             text-decoration: none;
-        }
-        nav .logo span { /* Gradient on logo part */
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
         }
 
-        nav ul { list-style: none; padding: 0; margin: 0; display: flex; }
-        nav ul li { margin-left: 30px; }
+        /* BLACK for brand name */
+        nav .logo span {
+            color: var(--green);
+        }
+
+        /* Main green for "Smart" */
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 24px;
+        }
+
         nav ul li a {
             text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: color 0.3s ease, transform 0.3s ease;
+            color: var(--text-primary-on-light);
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: color 0.25s ease;
+            padding: 8px 0;
             position: relative;
-            padding-bottom: 5px;
         }
-        nav ul li a::after { /* Underline effect */
+
+        nav ul li a::after {
+            /* Underline effect */
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: 0;
+            bottom: -2px;
             left: 0;
-            background: var(--accent-gradient);
+            background-color: var(--accent-color);
             transition: width 0.3s ease;
         }
-        nav ul li a:hover, nav ul li a.active {
-            color: var(--text-primary);
-            transform: translateY(-2px);
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            color: var(--accent-color);
         }
-        nav ul li a:hover::after, nav ul li a.active::after { width: 100%; }
-        .menu-toggle { display: none; font-size: 28px; cursor: pointer; color: var(--text-primary); }
+
+        nav ul li a:hover::after,
+        nav ul li a.active::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--heading-color);
+        }
 
         /* --- Hero Section --- */
         #hero {
-            /* Using a gradient overlay on the image for richness */
-            background: linear-gradient(rgba(26, 32, 44, 0.75), rgba(26, 32, 44, 0.85)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover; /* Replace with ultra high-quality image */
-            color: var(--text-primary);
+            background: linear-gradient(rgba(26, 32, 44, 0.75), rgba(26, 32, 44, 0.85)), url('images/new8.jpg') no-repeat center center/cover;
+            /* Replace with ultra high-quality image */
+            /* Pale green background for hero */
             text-align: center;
-            padding: 150px 20px 120px;
-            position: relative; /* For pseudo-elements if needed */
+            padding: 90px 15px 80px;
+            border-bottom: 1px solid var(--light-green);
+            /* Light green border */
         }
+
         #hero h1 {
-            font-size: 3.8em; /* Even bigger */
-            margin-bottom: 25px;
-            font-weight: 700;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            color: var(--grey-bg);
         }
+
         #hero p {
-            font-size: 1.5em;
-            margin-bottom: 40px;
-            max-width: 750px;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 680px;
             margin-left: auto;
             margin-right: auto;
-            color: var(--text-primary); /* Brighter text for hero */
-            font-weight: 400;
-        }
-        #hero .btn {
-            padding: 18px 40px;
-            font-size: 1.3em;
+            color: var(--grey-bg);
+            /* Dark green text for readability on pale green */
         }
 
         /* --- Section Styling --- */
-        section { padding: 80px 0; }
-        section.bg-alternate { /* For subtle background variations if needed */
-            background-color: var(--bg-light-contrast);
+        section {
+            padding: 70px 0;
         }
+
+        section.bg-grey {
+            background-color: var(--pale-green);
+            border-top: 1px solid var(--border-color-light);
+            border-bottom: 1px solid var(--border-color-light);
+        }
+
+        section.bg-pale-green {
+            background-color: var(--white);
+            border-top: 1px solid var(--light-green);
+            border-bottom: 1px solid var(--light-green);
+        }
+
         .section-title {
             text-align: center;
-            margin-bottom: 60px;
-            font-size: 2.8em;
-            position: relative;
-            padding-bottom: 15px;
-        }
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: var(--accent-gradient);
-            margin: 15px auto 0;
-            border-radius: 2px;
+            margin-bottom: 50px;
         }
 
-        /* --- Solutions Section (3D Card Effect) --- */
-        .solutions-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-        }
-        .solution-card {
-            background-color: var(--bg-light-contrast);
-            padding: 35px;
-            border-radius: 15px; /* More rounded */
-            box-shadow: var(--shadow-strong);
+        /* --- Solutions Section - Image Left/Right --- */
+        .solutions-intro {
             text-align: center;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease; /* Bouncy transform */
-            overflow: hidden; /* For image effects */
-            position: relative;
-            border-top: 4px solid transparent; /* For gradient border on hover */
-        }
-        .solution-card:hover {
-            transform: translateY(-15px) perspective(1000px) rotateX(5deg) rotateY(-3deg); /* Subtle 3D tilt */
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 10px 25px rgba(0,0,0,0.3);
-            border-top-color: var(--accent-solid-start); /* Example: change to use gradient if possible with pseudo-elements */
-        }
-        .solution-card::before { /* Gradient border attempt on hover */
-            content: "";
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 4px;
-            background: var(--accent-gradient);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        .solution-card:hover::before {
-            opacity: 1;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+            color: var(--text-secondary-on-light);
         }
 
-        .solution-card img {
-            max-width: 100%;
-            height: 220px;
+        .solution-item {
+            display: flex;
+            background-color: var(--grey-bg);
+            /* White background for cards */
+            border-radius: 8px;
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            margin-bottom: 40px;
+            transition: box-shadow 0.3s ease;
+            align-items: center;
+        }
+
+        .solution-item:hover {
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .solution-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .solution-image {
+            flex: 0 0 48%;
+            max-width: 48%;
+            min-height: 300px;
+            overflow: hidden;
+        }
+
+        .solution-image img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 25px;
-            box-shadow: var(--shadow-light);
+            display: block;
             transition: transform 0.4s ease;
         }
-        .solution-card:hover img {
-            transform: scale(1.05);
+
+        .solution-item:hover .solution-image img {
+            transform: scale(1.03);
         }
-        .solution-card h3 {
-            color: var(--text-primary);
-            margin-bottom: 15px;
+
+        .solution-content {
+            flex: 1;
+            padding: 35px 40px;
         }
-        .solution-card p.description { /* Specific class for card description */
-             color: var(--text-secondary); font-size: 0.95em; margin-bottom: 20px;
-        }
-        .solution-card ul { list-style: none; padding: 0; text-align: left; }
-        .solution-card ul li {
+
+        .solution-content h3 {
             margin-bottom: 10px;
+            font-size: 1.7em;
+        }
+
+        .solution-content p.description {
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+
+        .solution-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .solution-content ul li {
             padding-left: 25px;
             position: relative;
-            color: var(--text-secondary);
-            font-weight: 300;
+            margin-bottom: 10px;
+            font-size: 0.95em;
         }
-        .solution-card ul li::before {
-            content: '✓'; /* Keep checkmark, but style it with accent */
-            color: var(--accent-solid-start);
+
+        .solution-content ul li::before {
+            content: '✓';
+            color: var(--accent-color);
             position: absolute;
             left: 0;
             font-weight: bold;
             font-size: 1.1em;
         }
 
+        .solution-content .btn {
+            margin-top: 15px;
+        }
+
         /* --- Why Us Section --- */
         .why-us-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 35px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
         }
-        .why-us-item {
-            padding: 25px;
-            text-align: center;
-            background-color: var(--bg-light-contrast);
-            border-radius: 10px;
-            box-shadow: var(--shadow-light);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .why-us-item:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-strong);
-        }
-        .why-us-item .icon { /* Use SVG or Font Icons Here */
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-        }
-        .why-us-item h4 { margin-bottom: 10px; color: var(--text-primary); }
-        .why-us-item p { font-size: 0.9em; }
 
+        .why-us-item {
+            padding: 30px 20px;
+            text-align: center;
+            background-color: var(--white);
+            border-radius: 8px;
+            border: 1px solid var(--light-green);
+            /* Light green border */
+            box-shadow: var(--shadow-card);
+        }
+
+        .why-us-item .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .why-us-item h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .why-us-item p {
+            font-size: 0.9em;
+            color: var(--text-secondary-on-light);
+        }
 
         /* --- How It Works Section --- */
         .how-it-works-steps {
-            display: flex;
-            justify-content: space-around;
-            gap: 25px;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
         }
+
         .step {
-            background: var(--bg-light-contrast);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-light);
+            background: var(--grey-bg);
+            padding: 30px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--light-green);
             text-align: center;
-            flex-basis: calc(25% - 25px); /* Adjust for 4 steps */
-            min-width: 230px;
-            margin-bottom: 25px;
-            position: relative;
-            overflow: hidden;
+            box-shadow: var(--shadow-card);
         }
-        .step::after { /* Decorative element */
-            content: '';
-            position: absolute;
-            bottom: -30px; right: -30px;
-            width: 100px; height: 100px;
-            background: var(--accent-gradient);
-            opacity: 0.1;
+
+        .step .step-number-container {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            transform: rotate(45deg);
-        }
-        .step .step-number {
-            display: flex; /* For centering icon/number */
-            justify-content: center;
+            background: var(--accent-color);
+            color: var(--button-primary-text);
+            font-size: 1.4em;
+            font-weight: 700;
+            margin: 0 auto 15px auto;
+            display: flex;
             align-items: center;
-            width: 60px;
-            height: 60px;
-            line-height: 60px;
-            border-radius: 50%;
-            background: var(--accent-gradient);
-            color: var(--text-primary);
-            font-size: 1.8em;
-            font-weight: 600;
-            margin: 0 auto 20px auto;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            justify-content: center;
         }
-        .step h4 { color: var(--text-primary); }
+
+        .step h4 {
+            font-size: 1.15em;
+            color: var(--heading-color);
+            font-weight: 700;
+        }
+
+        .step p {
+            font-size: 0.9em;
+            color: var(--text-secondary-on-light);
+        }
 
         /* --- About Snippet Section --- */
-        #about-snippet { text-align: center; }
+        #about-snippet {
+            text-align: center;
+            padding: 60px 15px;
+        }
+
+        #about-snippet h2 {
+            margin-bottom: 20px;
+        }
+
         #about-snippet p {
-            max-width: 850px;
-            margin: 0 auto 30px auto;
-            font-size: 1.2em;
-            color: var(--text-primary);
+            max-width: 720px;
+            margin: 0 auto 25px auto;
+            font-size: 1.1em;
         }
 
         /* --- Contact Section --- */
-        #contact { background-color: var(--bg-light-contrast); } /* Using alternate bg */
-        #contact .section-title { color: var(--text-primary); }
-
         .contact-form-container {
-            max-width: 750px;
+            max-width: 650px;
             margin: 0 auto;
-            background-color: var(--bg-dark); /* Darker form background for contrast */
-            padding: 45px;
-            border-radius: 15px;
-            box-shadow: var(--shadow-strong);
+            background-color: var(--grey-bg);
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--pale-green);
         }
-        .contact-form-container h3 { color: var(--text-primary); text-align: center; margin-bottom: 35px;}
-        .form-group { margin-bottom: 25px; }
+
+        .contact-form-container h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.6em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9em;
+            color: var(--text-primary-on-light);
         }
-        .form-group input, .form-group textarea, .form-group select {
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
             width: 100%;
-            padding: 15px; /* More padding */
-            background-color: var(--bg-light-contrast);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 8px;
+            padding: 12px 14px;
+            background-color: var(--white);
+            border: 1px solid var(--border-color-light);
+            border-radius: 6px;
             box-sizing: border-box;
             font-family: var(--font-primary);
-            font-size: 1em;
-            color: var(--text-primary);
+            font-size: 0.95em;
+            color: var(--text-primary-on-light);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
-            border-color: var(--accent-solid-start);
-            box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.3);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 3px var(--light-green);
         }
-        .form-group textarea { min-height: 130px; resize: vertical; }
-        .contact-info { text-align: center; margin-top: 50px; }
-        .contact-info p { margin-bottom: 8px; color: var(--text-secondary); }
+
+        .form-group textarea {
+            min-height: 100px;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.95em;
+        }
+
+        .contact-info p {
+            margin-bottom: 5px;
+        }
+
         .contact-info a {
-            color: var(--accent-solid-start);
+            color: var(--accent-color);
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
+            font-weight: 600;
         }
-        .contact-info a:hover { color: var(--accent-solid-end); text-decoration: underline; }
 
         /* --- Footer --- */
         footer {
-            background-color: #11151C; /* Even darker for footer */
-            color: var(--text-secondary);
+            background-color: var(--bg-footer);
+            color: var(--pale-green);
+            /* Pale green text on dark green footer */
             text-align: center;
             padding: 30px 0;
-            font-size: 0.95em;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9em;
         }
-        footer p { margin: 8px 0; }
-        footer a { color: var(--accent-solid-start); text-decoration: none; }
-        footer a:hover { color: var(--accent-solid-end); }
+
+        footer p {
+            margin: 8px 0;
+        }
+
+        footer a {
+            color: var(--light-green);
+            /* Light green links in footer */
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            color: var(--white);
+        }
 
         /* --- Responsive Design --- */
         @media (max-width: 992px) {
-            .container { width: 95%; }
-            h1 { font-size: 2.6em; }
-            #hero h1 { font-size: 3.2em; }
-            #hero p { font-size: 1.3em; }
-            .step { flex-basis: calc(50% - 20px); }
-            .solution-card:hover { /* Simplify 3D effect on smaller screens if it causes issues */
-                transform: translateY(-10px);
+            .container {
+                padding: 50px 15px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            #hero h1 {
+                font-size: 2.5em;
+            }
+
+            #hero p {
+                font-size: 1.1em;
+            }
+
+            .solution-item,
+            .solution-item:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .solution-image {
+                flex: 0 0 auto;
+                max-width: 100%;
+                width: 100%;
+                min-height: 240px;
+            }
+
+            .solution-content {
+                padding: 30px 25px;
             }
         }
 
         @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+
             nav ul {
                 display: none;
                 flex-direction: column;
                 width: 100%;
-                background-color: var(--bg-light-contrast);
+                background-color: var(--white);
                 position: absolute;
-                top: 75px; /* Adjust based on nav height */
+                top: 100%;
                 left: 0;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-                padding-bottom: 10px;
+                box-shadow: 0 3px 5px rgba(0, 0, 0, 0.05);
+                padding: 5px 0;
+                border-top: 1px solid var(--border-color-light);
             }
-            nav ul.active { display: flex; }
-            nav ul li { margin: 15px 25px; }
-            .menu-toggle { display: block; margin-left: auto; padding-right: 20px;}
 
-            .section-title { font-size: 2.2em; }
-            .solutions-grid, .why-us-grid { grid-template-columns: 1fr; }
-            .step { flex-basis: 100%; }
-            .solution-card:hover {
-                 transform: translateY(-10px) perspective(1000px) rotateX(0deg) rotateY(0deg); /* Remove tilt on mobile */
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 10px 15px;
+            }
+
+            .menu-toggle {
+                display: block;
+                margin-left: auto;
+                padding-right: 10px;
+            }
+
+            .section-title {
+                font-size: 1.9em;
+                margin-bottom: 35px;
+            }
+
+            .why-us-grid,
+            .how-it-works-steps {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .why-us-item,
+            .step {
+                padding: 25px 15px;
             }
         }
 
         @media (max-width: 480px) {
-            body { font-size: 16px; }
-            #hero { padding: 100px 20px 80px; }
-            #hero h1 { font-size: 2.6em; }
-            #hero p { font-size: 1.15em; }
-            #hero .btn { padding: 16px 30px; font-size: 1.1em; }
-            .btn { width: 100%; text-align: center; box-sizing: border-box; }
-            .contact-form-container { padding: 30px 20px; }
-        }
+            #hero {
+                padding: 70px 15px 60px;
+            }
 
+            #hero h1 {
+                font-size: 2.1em;
+            }
+
+            #hero p {
+                font-size: 1em;
+            }
+
+            .btn {
+
+                padding: 14px 20px;
+            }
+
+            .solution-content {
+                padding: 25px 20px;
+            }
+
+            .solution-content h3 {
+                font-size: 1.4em;
+            }
+
+            .contact-form-container {
+                padding: 25px 15px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <!-- Navigation Bar -->
     <nav id="main-nav">
         <div class="container">
-            <a href="#hero" class="logo">Savor<span>Smart</span></a>
+            <a href="#hero" class="logo">
+                <!--<img src="./images/logo.ico" alt="brand-logo">-->
+                Savor<span>Smart</span>
+            </a>
             <div class="menu-toggle" id="mobile-menu">
-                ☰ <!-- Hamburger Icon -->
+                ☰
             </div>
             <ul id="nav-links">
                 <li><a href="#hero" class="active">Home</a></li>
@@ -493,171 +695,198 @@
     <!-- Hero Section -->
     <section id="hero">
         <div class="container">
-            <h1>The Future of Workplace Refreshments is Here. And It's FREE.</h1>
-            <p>Savor Smart delivers premium, AI-driven vending and micro market experiences directly to your workplace. Zero cost, zero hassle, maximum employee delight.</p>
-            <a href="#contact" class="btn">Transform Your Breakroom Now</a>
+            <br>
+            <br>
+            <br>
+            <h1>Fresh & Smart Vending for Your Workplace</h1>
+            <p>Savor Smart offers free installation and full management of AI-powered vending machines and micro marts,
+                stocked with choices your team will love.</p>
+            <a href="#contact" class="btn">Get a Free Quote</a>
         </div>
     </section>
 
     <!-- Solutions Section -->
-    <section id="solutions" class="bg-alternate">
+    <section id="solutions" class="bg-grey"> <!-- Using grey background for this section -->
         <div class="container">
-            <h2 class="section-title">Our Intelligent Refreshment Platforms</h2>
-            <div class="solutions-grid">
-                <div class="solution-card">
-                    <img src="https://images.unsplash.com/photo-1618405078930-71913c9e25de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Sleek AI Vending Machine">
-                    <h3>AI-Powered Vending</h3>
-                    <p class="description">Ultra-modern machines with smart inventory, cashless payments, and a curated selection of popular and healthy options.</p>
-                    <ul>
-                        <li>Predictive AI Stocking</li>
-                        <li>Touchless & Mobile Payments</li>
-                        <li>Premium Product Assortment</li>
-                        <li>Energy-Efficient & Eco-Friendly</li>
-                        <li>Real-time Health Monitoring</li>
-                    </ul>
+            <h2 class="section-title">Our Modern Vending & Mart Solutions</h2>
+            <p class="solutions-intro">Discover how our range of services can enhance your employee benefits and
+                workplace convenience, all at no cost to you.</p>
+
+            <div class="solution-item">
+                <div class="solution-image">
+                    <img src="./images/ai1.jpg" alt="AI Powered Vending Machine in an office">
                 </div>
-                <div class="solution-card">
-                    <img src="https://images.unsplash.com/photo-1588515889008-5a03ba951176?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&q=80" alt="Modern Micro Mart Interior">
-                    <h3>Luxe Micro Marts</h3>
-                    <p class="description">A boutique self-checkout market in your office, offering fresh meals, gourmet snacks, artisan coffees, and more.</p>
+                <div class="solution-content">
+                    <h3>AI-Powered Vending</h3>
+                    <p class="description">Our smart vending machines utilize AI for optimized inventory, popular
+                        product suggestions, and seamless cashless transactions.</p>
                     <ul>
-                        <li>Extensive Gourmet & Fresh Selection</li>
-                        <li>24/7 Secure Self-Service Kiosk</li>
-                        <li>Custom Branded Environments</li>
-                        <li>Boosts Productivity & Well-being</li>
-                        <li>Sophisticated Employee Perk</li>
+                        <li>Intelligent stock management</li>
+                        <li>Contactless payment options</li>
+                        <li>Personalized recommendations</li>
+                        <li>Energy-efficient technology</li>
                     </ul>
+                    <a href="#contact" class="btn btn-secondary">Inquire About AI Vending</a>
                 </div>
             </div>
+
+            <div class="solution-item">
+                <div class="solution-image">
+                    <img src="./images/mm1.png" alt="Well-stocked Micro Mart">
+                </div>
+                <div class="solution-content">
+                    <h3>Micro Markets</h3>
+                    <p class="description">A custom-designed, self-service market in your breakroom, offering a wide
+                        selection of fresh foods, healthy snacks, and beverages.</p>
+                    <ul>
+                        <li>24/7 access to diverse products</li>
+                        <li>Secure, easy self-checkout</li>
+                        <li>Customizable to fit your space</li>
+                        <li>Promotes employee well-being</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Explore Micro Markets</a>
+                </div>
+            </div>
+
+            <div class="solution-item">
+                <div class="solution-image">
+                    <!-- Replace with appropriate image for specialized vending -->
+                    <img src="images/ven2.png" alt="Specialized Vending Machine">
+                </div>
+                <div class="solution-content">
+                    <h3>Specialized Vending</h3>
+                    <p class="description">We provide tailored vending solutions, including secure machines with age
+                        verification and premium coffee stations.</p>
+                    <ul>
+                        <li>Age-verified product sales</li>
+                        <li>Fresh bean-to-cup coffee</li>
+                        <li>Fresh food and snack combinations</li>
+                        <li>Hot and cold beverages</li>
+                        <li>Machines for non-traditional items</li>
+                        <li>Custom solutions for unique needs</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Discuss Your Needs</a>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <!-- Why Savor Smart? Section -->
-    <section id="why-us">
+    <!-- Why Us Section -->
+    <section id="why-us" class="bg-pale-green"> <!-- Pale green background for Why Us -->
         <div class="container">
-            <h2 class="section-title">The Savor Smart Difference</h2>
+            <h2 class="section-title">The Savor Smart Advantage</h2>
             <div class="why-us-grid">
                 <div class="why-us-item">
-                    <div class="icon">💎</div> <!-- Placeholder Icon: Gem / Diamond -->
-                    <h4>Zero Cost, Premium Value</h4>
-                    <p>Experience state-of-the-art refreshment solutions without any investment. We cover all costs.</p>
+                    <div class="icon">🎁</div>
+                    <h4>Absolutely Free Service</h4>
+                    <p>No costs for machines, installation, stocking, or maintenance. It's all on us.</p>
                 </div>
                 <div class="why-us-item">
-                    <div class="icon">🧠</div> <!-- Placeholder Icon: Brain -->
-                    <h4>Intelligent Automation</h4>
-                    <p>Our AI platform optimizes everything from product selection to maintenance, ensuring flawless service.</p>
+                    <div class="icon">⚙️</div>
+                    <h4>Latest Technology</h4>
+                    <p>Smart AI, cashless systems, and reliable, modern vending equipment.</p>
                 </div>
                 <div class="why-us-item">
-                    <div class="icon">🌟</div> <!-- Placeholder Icon: Star -->
-                    <h4>Elevate Employee Experience</h4>
-                    <p>A highly-valued perk that boosts morale, satisfaction, and makes your company a preferred workplace.</p>
+                    <div class="icon">😊</div>
+                    <h4>Happier Employees</h4>
+                    <p>Boost morale with convenient access to a wide variety of quality refreshments.</p>
                 </div>
                 <div class="why-us-item">
-                    <div class="icon">🤝</div> <!-- Placeholder Icon: Handshake -->
-                    <h4>Full Concierge Service</h4>
-                    <p>From design to daily operations, we provide a completely turnkey, white-glove service.</p>
+                    <div class="icon">🤝</div>
+                    <h4>Full Management</h4>
+                    <p>We handle everything, offering you a completely hassle-free experience.</p>
                 </div>
-            </div>
-             <div style="text-align:center; margin-top: 50px;">
-                 <p style="font-size: 1.3em; color: var(--text-primary);"><em>Partnering with forward-thinking companies to redefine workplace culture.</em></p>
             </div>
         </div>
     </section>
 
     <!-- How It Works Section -->
-    <section id="how-it-works" class="bg-alternate">
+    <section id="how-it-works" class="bg-grey"> <!-- Grey background for How It Works -->
         <div class="container">
-            <h2 class="section-title">Seamless Integration, Effortless for You</h2>
+            <h2 class="section-title">Our Simple Setup Process</h2>
             <div class="how-it-works-steps">
                 <div class="step">
-                    <div class="step-number">1</div>
-                    <h4>Discover & Design</h4>
-                    <p>Free consultation to understand your vision. We design a bespoke solution.</p>
+                    <div class="step-number-container">1</div>
+                    <h4>Consultation</h4>
+                    <p>We'll discuss your specific needs and assess your location.</p>
                 </div>
                 <div class="step">
-                    <div class="step-number">2</div>
-                    <h4>Flawless Install</h4>
-                    <p>Our expert team ensures a swift, professional, and non-disruptive installation.</p>
+                    <div class="step-number-container">2</div>
+                    <h4>Custom Plan</h4>
+                    <p>You receive a tailored proposal with our recommended solutions.</p>
                 </div>
                 <div class="step">
-                    <div class="step-number">3</div>
-                    <h4>Smart Operations</h4>
-                    <p>AI manages inventory & maintenance. We keep everything stocked and pristine.</p>
+                    <div class="step-number-container">3</div>
+                    <h4>Installation</h4>
+                    <p>Our expert team sets up your new system efficiently.</p>
                 </div>
                 <div class="step">
-                    <div class="step-number">4</div>
-                    <h4>Delight & Evolve</h4>
-                    <p>Your team enjoys! We continuously optimize based on usage and feedback.</p>
+                    <div class="step-number-container">4</div>
+                    <h4>Enjoy Service</h4>
+                    <p>We manage all stocking, maintenance, and support.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Brief About Snippet -->
+    <!-- About Snippet Section -->
     <section id="about-snippet">
         <div class="container">
-            <h2 class="section-title">Our Vision for Your Workplace</h2>
-            <p>At Savor Smart, we believe that exceptional workplace amenities are key to fostering a vibrant, productive, and happy workforce. We are dedicated to providing the most advanced, convenient, and entirely free refreshment solutions, empowering businesses to invest in their most valuable asset – their people. Our commitment is to seamless service, cutting-edge technology, and a partnership that enhances your company culture.</p>
-            <a href="#contact" class="btn btn-secondary">Learn How We Can Partner</a>
+            <h2>About Savor Smart</h2>
+            <p>At Savor Smart, we are passionate about revolutionizing workplace amenities. We provide cutting-edge,
+                fully managed vending and micro market solutions at zero cost to businesses. Our commitment to
+                innovation, quality products, and exceptional service makes us the ideal partner for companies looking
+                to enhance their employee experience and foster a more productive environment.</p>
+            <a href="#contact" class="btn">Learn More About Us</a>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
+    <section id="contact" class="bg-grey"> <!-- Pale green background for Contact -->
         <div class="container">
-            <h2 class="section-title">Ready to Elevate Your Workplace?</h2>
+            <h2 class="section-title">Get Your Free Vending Solution Today!</h2>
             <div class="contact-form-container">
-                <h3>Request Your Complimentary Consultation</h3>
-                <form action="#" method="POST">
-                    <div class="form-group">
-                        <label for="name">Full Name:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Company Name:</label>
-                        <input type="text" id="company" name="company" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number:</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="employees">Approx. Number of Employees:</label>
-                        <input type="number" id="employees" name="employees" min="1">
-                    </div>
-                    <div class="form-group">
-                        <label for="interest">Services Interested In:</label>
-                        <select id="interest" name="interest">
-                            <option value="not-sure">Not Sure / Need Advice</option>
-                            <option value="ai-vending">AI Vending Machines</option>
-                            <option value="micro-mart">Luxe Micro Marts</option>
-                            <option value="both">Both Solutions</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Vision / Questions:</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
-                    </div>
-                    <button type="submit" class="btn" style="width:100%;">Schedule My Free Discovery Call</button>
+                <h3>Request a No-Obligation Consultation</h3>
+                <form id="contactForm" action="https://api.staticforms.xyz/submit" method="POST">
+                    <!-- Required: Your Static Forms API key -->
+                    <input type="hidden" name="apiKey" value="sf_8f3a6jec2cbgb4m2dl8e4g56">
+
+                    <!-- Enable reply-to functionality -->
+                    <input type="hidden" name="replyTo" value="@">
+                    <!-- Anti-spam honeypot field -->
+                    <input type="text" name="honeypot" style="display: none" tabindex="-1" autocomplete="off">
+
+                    <div class="form-group"> <label for="name">Full Name:</label> <input type="text" id="name"
+                            name="name" required> </div>
+                    <div class="form-group"> <label for="company">Company Name:</label> <input type="text" id="company"
+                            name="company" required> </div>
+                    <div class="form-group"> <label for="email">Email Address:</label> <input type="email" id="email"
+                            name="email" required> </div>
+                    <div class="form-group"> <label for="phone">Phone Number:</label> <input type="tel" id="phone"
+                            name="phone"> </div>
+                    <div class="form-group"> <label for="message">Message (Optional):</label> <textarea id="message"
+                            name="message" rows="3"></textarea> </div>
+                    <!--<div id="formMessage" style="display:none; color: var(--dark-green);">Thank you! We have recieved your message.</div>-->
+                    <button type="submit" class="btn" style="width:100%;">Submit Request</button>
+                    <!-- reCAPTCHA integration -->
+                    <!--<div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
+                    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+                    <!-- Optional redirect URLs -->
+                    <!--    <input type="hidden" name="redirectTo" value="https://savorsmart.ca">-->
                 </form>
             </div>
             <div class="contact-info">
-                <p>Alternatively, reach out to our specialists:</p>
-                <p><strong>Call Us:</strong> <a href="tel:+1800SAVORSMART">(800) SAVOR-SMART</a> (Placeholder)</p>
-                <p><strong>Email:</strong> <a href="mailto:concierge@savorsmart.com">concierge@savorsmart.com</a> (Placeholder)</p>
+                <p>Or call us at <a href="tel:+1800SAVORSMART">+1 (416) 474 5751</a> | Email: <a
+                        href="mailto:info@savorsmart.com">info@savorsmart.com</a></p>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>© <span id="currentYear"></span> Savor Smart. The Future of Workplace Refreshments.</p>
-            <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a> | <a href="#hero">Back to Top</a></p>
+        <div class="container" style="padding: 25px 15px;">
+            <p>© <span id="currentYear"></span> Savor Smart. Your Partner in Workplace Refreshments.</p>
+            <!--<p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>-->
         </div>
     </footer>
 
@@ -673,14 +902,13 @@
         });
 
         // Active Nav Link Scrolling
-        const sections = document.querySelectorAll('section');
+        const sections = document.querySelectorAll('section[id]'); // Ensure only sections with ID are selected
         const navLiAnchors = document.querySelectorAll('nav ul li a');
         window.addEventListener('scroll', () => {
-            let current = '';
+            let current = 'hero';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= (sectionTop - sectionHeight / 2.5)) { // Adjusted threshold
+                if (pageYOffset >= (sectionTop - (window.innerHeight / 2.5))) {
                     current = section.getAttribute('id');
                 }
             });
@@ -690,26 +918,45 @@
                     a.classList.add('active');
                 }
             });
-            // Ensure home is active if at top
-            if (current === '' && pageYOffset < sections[0].offsetTop + sections[0].clientHeight / 3) {
-                 document.querySelector('nav ul li a[href="#hero"]').classList.add('active');
-            } else if (current === '' && pageYOffset > sections[0].offsetTop + sections[0].clientHeight /3){ // if current is empty but not at top (e.g. footer)
-                // do nothing or handle specifically if footer was a section
-            }
         });
 
         // Set current year in footer
         document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // Simple parallax for hero background (optional, can be demanding)
-        // window.addEventListener('scroll', function() {
-        //     const hero = document.getElementById('hero');
-        //     let offset = window.pageYOffset;
-        //     if (hero) { // Check if hero element exists
-        //       hero.style.backgroundPositionY = offset * 0.4 + 'px';
-        //     }
-        // });
+        //Submit form 
+        const form = document.getElementById("contactForm");
+        //const message = document.getElementById("formMessage");
+
+        form.addEventListener("submit", async function (e) {
+            e.preventDefault(); // prevent page refresh
+
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData,
+            });
+
+            if (response.ok) {
+                form.reset();
+                Swal.fire({
+                    title: "Success!",
+                    text: "We have recieved your message.",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#139051" // green button
+                });
+            } else {
+                Swal.fire({
+                    title: "Oops!",
+                    text: "Something went wrong. Please try again.",
+                    icon: "error",
+                    confirmButtonText: "Retry",
+                    confirmButtonColor: "#139051" // green button
+                });
+            }
+        });
     </script>
 
 </body>
+
 </html>
