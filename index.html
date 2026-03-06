@@ -61,6 +61,7 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
 .logo-icon { width: 38px; height: 38px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; flex-shrink: 0; }
 .logo-dot { border-radius: 4px; background: linear-gradient(135deg, #c84b9e, #e8883a); }
 .logo-text { font-size: 22px; font-weight: 700; color: white; letter-spacing: -0.5px; white-space: nowrap; }
+.nav-actions { display: inline-flex; align-items: center; gap: 10px; }
 
 .nav-contact {
   display: inline-flex; align-items: center; gap: 8px;
@@ -72,6 +73,21 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
   white-space: nowrap;
 }
 .nav-contact:hover { opacity: 0.88; transform: translateY(-1px); }
+.nav-flyer {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: white; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.24);
+  background: rgba(255,255,255,0.08);
+  border-radius: 100px; padding: 10px 18px;
+  transition: opacity 0.2s, transform 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+.nav-flyer:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  background: rgba(255,255,255,0.14);
+}
 
 /* ── Machines ── */
 .machines {
@@ -253,6 +269,8 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
   .nav { padding: 20px 24px; }
   .logo-text { font-size: 18px; }
   .logo-icon { width: 30px; height: 30px; }
+  .nav-actions { gap: 8px; }
+  .nav-flyer { font-size: 12px; padding: 8px 12px; gap: 6px; }
   .nav-contact { font-size: 12px; padding: 8px 14px; gap: 6px; }
   /* Orbs – smaller */
   .orb-1 { width: 300px; height: 300px; top: -60px; right: -60px; }
@@ -320,6 +338,7 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
 ════════════════════════════════════════════════════ */
 @media (max-width: 399px) {
   .headline { font-size: 36px; letter-spacing: -1.5px; }
+  .nav-flyer span:first-child { display: none; }
   .nav-contact span:first-child { display: none; }
   .content { padding: 82px 16px 14px; }
   .machines { padding: 0 10px; gap: 6px; margin-top: 0; }
@@ -540,6 +559,40 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
   .contact-cta-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
   .cta-bar-btn { width: 100%; text-align: center; }
 }
+
+/* ── Flyer modal ── */
+.flyer-dialog {
+  width: min(794px, calc(100vw - 20px));
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: white;
+  padding: 0;
+  overflow: hidden;
+  max-height: 95vh;
+  margin: auto;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.flyer-dialog::backdrop {
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+}
+.flyer-dialog-head {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+}
+.flyer-dialog h3 {
+  display: none;
+}
+.flyer-frame {
+  width: 100%;
+  height: min(88vh, 1123px);
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  display: block;
+}
 </style>
 </head>
 <body>
@@ -560,13 +613,16 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
       </div>
       <span class="logo-text">SavorSmart</span>
     </div>
-    <button class="nav-contact" onclick="openModal('contact-modal')">📬 Contact Us</button>
+    <div class="nav-actions">
+      <button class="nav-flyer" onclick="openFlyerDialog()"><span>📰</span> View Flyer</button>
+      <button class="nav-contact" onclick="openModal('contact-modal')"><span>📬</span> Contact Us</button>
+    </div>
   </nav>
 
   <!-- ── Main content ── -->
   <div class="content">
     <div class="badge"><div class="badge-dot"></div><span>Free Building Amenities Program</span></div>
-    <h1 class="headline">Add Free<br><span class="line-2">Amenities</span></h1>
+    <h1 class="headline">Vending<br><span class="line-2">Amenities</span></h1>
     <p class="subtext">We install, maintain, and fully stock modern amenity stations in your building at no cost to you. Your residents and teams get convenient 24/7 access, while we handle everything.</p>
     <div class="cta-row">
       <button class="btn-primary" onclick="openModal('quote-modal')">Get It For Your Building<span class="arrow">→</span></button>
@@ -601,6 +657,13 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
   <div class="right-fade"></div>
   <div class="bottom-fade"></div>
 </div>
+
+<dialog id="flyer-dialog" class="flyer-dialog">
+  <div class="flyer-dialog-head">
+    <button class="modal-close" type="button" onclick="closeFlyerDialog()">✕</button>
+  </div>
+  <iframe id="flyer-frame" class="flyer-frame" src="./flyer1side.html?embed=1" title="SavorSmart Flyer"></iframe>
+</dialog>
 
 <!-- ══════════════════════════════
      QUOTE MODAL
@@ -786,8 +849,20 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
   }
   function closeModal(id) { document.getElementById(id).classList.remove('open'); }
   function overlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+  function openFlyerDialog() {
+    const dlg = document.getElementById('flyer-dialog');
+    if (!dlg) return;
+    if (!dlg.open) dlg.showModal();
+  }
+  function closeFlyerDialog() {
+    const dlg = document.getElementById('flyer-dialog');
+    if (dlg && dlg.open) dlg.close();
+  }
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+      closeFlyerDialog();
+    }
   });
 
   async function submitQuote() {
