@@ -792,7 +792,7 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
         <div class="contact-card-body">
           <span class="contact-card-label">Call Us</span>
           <span class="contact-card-value">+1 (416) 474-5751</span>
-          <span class="contact-card-sub">Mon – Fri 9 AM – 6 PM · Sat 10 AM – 3 PM</span>
+          <span class="contact-card-sub">Available 24/7</span>
           <span class="contact-card-action action-phone">Call now →</span>
         </div>
       </a>
@@ -809,13 +809,13 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
       <div class="contact-hours-left">
         <div class="hours-icon">🕐</div>
         <div class="hours-text">
-          <span class="hours-label">Business Hours (EST)</span>
-          <span class="hours-value">Mon – Fri 9:00 AM – 6:00 PM &nbsp;·&nbsp; Sat 10:00 AM – 3:00 PM &nbsp;·&nbsp; Sun Closed</span>
+          <span class="hours-label">Business Hours</span>
+          <span class="hours-value">24/7</span>
         </div>
       </div>
       <div class="hours-badge" id="hours-badge">
         <div class="hours-badge-dot" id="hours-dot"></div>
-        <span id="hours-status">Now Open</span>
+        <span id="hours-status">Open 24/7</span>
       </div>
     </div>
     <div class="contact-cta-bar">
@@ -920,22 +920,10 @@ body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: 
   function switchToQuote() { closeModal('solutions-modal'); setTimeout(() => openModal('quote-modal'), 280); }
   function switchContactToQuote() { closeModal('contact-modal'); setTimeout(() => openModal('quote-modal'), 280); }
 
-  // Live open/closed badge
+  // Always open label for 24/7 support
   (function() {
-    const est = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Toronto' }));
-    const day = est.getDay(), h = est.getHours();
-    const isOpen = (day >= 1 && day <= 5 && h >= 9 && h < 18) || (day === 6 && h >= 10 && h < 15);
-    if (!isOpen) {
-      const badge = document.getElementById('hours-badge');
-      const dot   = document.getElementById('hours-dot');
-      const label = document.getElementById('hours-status');
-      badge.style.background    = 'rgba(255,90,90,0.1)';
-      badge.style.borderColor   = 'rgba(255,90,90,0.2)';
-      dot.style.background      = '#ff6464';
-      dot.style.boxShadow       = '0 0 6px #ff6464';
-      label.textContent         = 'Currently Closed';
-      label.style.color         = '#ff8888';
-    }
+    const label = document.getElementById('hours-status');
+    if (label) label.textContent = 'Open 24/7';
   })();
 </script>
 </body>
