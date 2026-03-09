@@ -364,8 +364,9 @@ body.embed-mode .page {
 
 /* Side images */
 .image-col {
-  padding: 10px 10px 24px;
+  padding: 10px 10px 144px;
   display: flex;
+  flex-direction: column;
   align-items: stretch;
 }
 .image-col.left {
@@ -379,14 +380,19 @@ body.embed-mode .page {
   overflow: hidden;
   border: 1px solid #e8e8e8;
   width: 100%;
-  height: 100%;
+  height: 90%;
+  align-self: flex-start;
   background: #fff;
 }
 .ph img {
-  width: 100%; height: 100%;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   object-position: center center;
   display: block;
+}
+.image-gap {
+  flex: 0 0 24px;
 }
 .stat-block {
   background: #0d0d12;
@@ -417,7 +423,7 @@ body.embed-mode .page {
 .footer {
   background: #0d0d12;
   flex-shrink: 0;
-  padding: 14px 32px;
+  padding: 10px 32px;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -591,7 +597,8 @@ body.embed-mode .page {
   <!-- 3. MIDDLE -->
   <div class="middle">
     <div class="image-col left">
-      <div class="ph"><img src="images/new/new1.png"/></div>
+      <div class="ph"><img src="images/new/pt1.png"/></div>
+      <div class="image-gap" aria-hidden="true"></div>
     </div>
 
     <div class="steps-col">
@@ -616,7 +623,8 @@ body.embed-mode .page {
     </div>
 
     <div class="image-col right">
-      <div class="ph"><img src="images/new/new2.png"/></div>
+      <div class="ph"><img src="images/new/pt2.png"/></div>
+      <div class="image-gap" aria-hidden="true"></div>
     </div>
   </div>
 
