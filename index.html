@@ -2,929 +2,662 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="google-site-verification" content="UEUa8EAR43aWs9yq69yjAM7gz8CuuaHnNOvZXrg21M4" />
 <title>SavorSmart</title>
-<link rel="icon" type="image/x-icon" href="images/logo/icon.png">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-:root {
-  --black: #0a0a0a;
-  --accent1: #c84b9e;
-  --accent2: #e8883a;
-  --accent3: #7c3aed;
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background:#888;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:48px;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering: optimizeLegibility;
 }
-
-/* ════════════════════════════════════════════════════
-   BASE / DESKTOP  (≥1024px)
-════════════════════════════════════════════════════ */
-html, body { width: 100%; height: 100%; }
-body { background: var(--black); font-family: 'Outfit', sans-serif; overflow-x: hidden; }
-
-.hero {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #0f0f14 40%, #0a0a10 100%);
-  overflow: hidden;
-}
-.hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.035; z-index: 1; pointer-events: none;
-}
-
-/* ── Orbs ── */
-.orb { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; }
-.orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(200,75,158,0.18) 0%, transparent 70%); top: -100px; right: 200px; }
-.orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(232,136,58,0.12) 0%, transparent 70%); bottom: -100px; right: 600px; }
-.orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%); top: 100px; left: 100px; }
-
-.grid-lines {
-  position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-}
-
-/* ── Nav ── */
-.nav {
-  position: absolute; top: 0; left: 0; right: 0;
-  z-index: 20;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: clamp(20px, 2.2vw, 28px) clamp(24px, 5vw, 72px);
-}
-.logo { display: flex; align-items: center; gap: 14px; }
-.logo-icon { width: 38px; height: 38px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; flex-shrink: 0; }
-.logo-dot { border-radius: 4px; background: linear-gradient(135deg, #c84b9e, #e8883a); }
-.logo-text { font-size: 22px; font-weight: 700; color: white; letter-spacing: -0.5px; white-space: nowrap; }
-.nav-actions { display: inline-flex; align-items: center; gap: 10px; }
-
-.nav-contact {
-  display: inline-flex; align-items: center; gap: 8px;
-  color: white; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
-  cursor: pointer; border: none;
-  background: linear-gradient(135deg, #c84b9e, #e8883a);
-  border-radius: 100px; padding: 10px 20px;
-  transition: opacity 0.2s, transform 0.2s;
-  white-space: nowrap;
-}
-.nav-contact:hover { opacity: 0.88; transform: translateY(-1px); }
-.nav-flyer {
-  display: inline-flex; align-items: center; gap: 8px;
-  color: white; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 600;
-  cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.24);
-  background: rgba(255,255,255,0.08);
-  border-radius: 100px; padding: 10px 18px;
-  transition: opacity 0.2s, transform 0.2s, background 0.2s;
-  white-space: nowrap;
-}
-.nav-flyer:hover {
-  opacity: 0.95;
-  transform: translateY(-1px);
-  background: rgba(255,255,255,0.14);
-}
-
-/* ── Machines ── */
-.machines {
-  position: absolute;
-  top: auto;
-  right: clamp(10px, 2vw, 30px);
-  bottom: clamp(28px, 4vh, 52px);
-  width: calc(50% - clamp(16px, 2vw, 34px));
-  height: 75vh;
-  z-index: 8;
-  pointer-events: none;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: end;
-  gap: clamp(8px, 1vw, 14px);
-}
-.machine-slot { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: clamp(6px, 0.9vw, 10px); height: 100%; }
-.machine-float {
-  position: relative;
-  width: auto;
-  max-width: 100%;
-  height: calc(100% - clamp(34px, 6vh, 68px));
-  display: flex; align-items: flex-end; justify-content: center;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  backdrop-filter: none;
-  box-shadow: none;
-}
-.machine-float img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 20px 42px rgba(0,0,0,0.82));
-}
-.mf-1 { animation: floatM1 7s ease-in-out infinite; }
-.mf-2 { animation: floatM2 8s ease-in-out infinite; }
-.mf-3 { animation: floatM3 7.6s ease-in-out infinite; }
-.ms-1 { transform: translateY(24px); }
-.ms-2 { transform: translateY(0); }
-.ms-3 { transform: translateY(16px); }
-@keyframes floatM1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-@keyframes floatM2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-@keyframes floatM3 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-
-.right-fade {
-  position: absolute; top: 0; right: 0; width: 120px; height: 100%;
-  background: linear-gradient(to left, rgba(10,10,10,0.6), transparent);
-  z-index: 6; pointer-events: none;
-}
-.bottom-fade {
-  position: absolute; bottom: 0; left: 0; right: 0; height: 120px;
-  background: linear-gradient(to top, rgba(10,10,10,0.7), transparent);
-  z-index: 7; pointer-events: none;
-}
-
-/* ── Machine Pills ── */
-.machine-pill {
-  position: relative; z-index: 10;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px); border-radius: 100px;
-  padding: clamp(6px, 0.8vw, 8px) clamp(8px, 1vw, 12px);
-  font-size: clamp(8px, 0.62vw, 10px); font-weight: 600;
-  letter-spacing: 1.2px; text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
-  display: flex; align-items: center; gap: 8px; white-space: nowrap;
-}
-.mpp-1 { animation: floatPillA 7.4s ease-in-out infinite; }
-.mpp-2 { animation: floatPillB 8.2s ease-in-out infinite; }
-.mpp-3 { animation: floatPillC 6.8s ease-in-out infinite; }
-.pill-dot { width: 6px; height: 6px; border-radius: 50%; }
-@keyframes floatPillA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
-@keyframes floatPillB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
-@keyframes floatPillC { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
-
-/* ── Content ── */
-.content {
-  position: relative; z-index: 10;
-  padding: clamp(120px, 14vh, 160px) clamp(24px, 5vw, 72px) clamp(120px, 14vh, 160px);
-  max-width: min(48vw, 640px);
-}
-.badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 100px; padding: 6px 16px; margin-bottom: 28px; backdrop-filter: blur(8px);
-}
-.badge-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: linear-gradient(135deg, #c84b9e, #e8883a);
-  box-shadow: 0 0 10px rgba(200,75,158,0.8);
-  animation: pulse 2s ease-in-out infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.6;transform:scale(1.3)} }
-.badge span { font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); }
-
-.headline { font-size: 76px; font-weight: 900; line-height: 1.0; letter-spacing: -3px; color: white; margin-bottom: 24px; }
-.headline .line-2 {
-  background: linear-gradient(90deg, #c84b9e 0%, #e8883a 50%, #f5c842 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.subtext {
-  font-size: 18px; font-weight: 300; line-height: 1.65;
-  color: rgba(255,255,255,0.55); max-width: 480px; margin-bottom: 44px; letter-spacing: 0.2px;
-}
-
-.cta-row { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
-.btn-primary {
-  display: inline-flex; align-items: center; gap: 10px;
-  background: linear-gradient(135deg, #c84b9e, #e8883a); color: white;
-  font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700;
-  letter-spacing: 0.5px; padding: 16px 32px; border-radius: 100px;
-  text-decoration: none; box-shadow: 0 8px 32px rgba(200,75,158,0.35);
-  border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
-  white-space: nowrap;
-}
-.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,75,158,0.5); }
-
-.btn-secondary {
-  display: inline-flex; align-items: center; gap: 10px;
-  color: white; font-family: 'Outfit', sans-serif;
-  font-size: 15px; font-weight: 600;
-  border: 1px solid rgba(200,75,158,0.45);
-  background: rgba(200,75,158,0.14);
-  border-radius: 100px;
-  padding: 12px 20px;
-  box-shadow: 0 8px 24px rgba(200,75,158,0.18);
-  cursor: pointer; letter-spacing: 0.3px; transition: color 0.2s; white-space: nowrap;
-}
-.btn-secondary:hover {
-  color: white;
-  background: rgba(200,75,158,0.22);
-  border-color: rgba(200,75,158,0.65);
-}
-
-.arrow {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); font-size: 14px;
-}
-
-/* ── Stats ── */
-.stats {
-  position: absolute; bottom: 44px; left: 72px;
-  z-index: 10; display: flex; gap: 48px;
-}
-.stat { display: flex; flex-direction: column; gap: 4px; }
-.stat-number { font-size: 28px; font-weight: 800; color: white; letter-spacing: -1px; }
-.stat-label { font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-.stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); align-self: center; }
-
-/* ════════════════════════════════════════════════════
-   TABLET  (768px – 1023px)
-════════════════════════════════════════════════════ */
-@media (max-width: 1023px) {
-  .nav { padding: 24px 40px; }
-  .content { padding: 140px 40px 140px; max-width: min(56vw, 520px); }
-  .headline { font-size: 58px; letter-spacing: -2px; }
-  .subtext { font-size: 16px; }
-
-  .machines { width: calc(50% - 18px); right: 10px; bottom: clamp(28px, 4vh, 48px); height: 75vh; gap: 10px; }
-  .machine-float { height: calc(100% - clamp(30px, 5vh, 56px)); }
-  .machine-pill { font-size: 9px; padding: 7px 10px; }
-  .ms-1 { transform: translateY(20px); }
-  .ms-3 { transform: translateY(14px); }
-
-  .stats { left: 40px; bottom: 36px; gap: 32px; }
-  .stat-number { font-size: 24px; }
-}
-
-/* ════════════════════════════════════════════════════
-   MOBILE  (≤767px)
-════════════════════════════════════════════════════ */
-@media (max-width: 767px) {
-  .hero {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Nav */
-  .nav { padding: 20px 24px; }
-  .logo-text { font-size: 18px; }
-  .logo-icon { width: 30px; height: 30px; }
-  .nav-actions { gap: 8px; }
-  .nav-flyer { font-size: 12px; padding: 8px 12px; gap: 6px; }
-  .nav-contact { font-size: 12px; padding: 8px 14px; gap: 6px; }
-  /* Orbs – smaller */
-  .orb-1 { width: 300px; height: 300px; top: -60px; right: -60px; }
-  .orb-2 { width: 280px; height: 280px; bottom: -60px; right: 20px; }
-  .orb-3 { width: 200px; height: 200px; top: 60px; left: -60px; }
-
-  /* Content stacked */
-  .content {
-    position: relative; z-index: 10;
-    padding: 88px 24px 16px;
-    max-width: min(100%, 540px);
-    order: 1;
-  }
-  .headline { font-size: 42px; letter-spacing: -2px; margin-bottom: 16px; }
-  .subtext { font-size: 15px; margin-bottom: 24px; max-width: 100%; }
-  .badge { margin-bottom: 20px; }
-  .badge span { font-size: 10px; letter-spacing: 1.5px; }
-
-  .cta-row { gap: 6px; }
-  .btn-primary { font-size: 14px; padding: 14px 24px; }
-  .btn-secondary { font-size: 14px; }
-
-  /* Floating machines */
-  .machines {
-    position: relative;
-    top: auto; left: auto; right: auto; bottom: auto;
-    width: 100%; height: auto;
-    padding: 0 14px;
-    margin-top: 2px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    order: 2;
-  }
-  .machine-slot { gap: 6px; transform: none; }
-  .machine-float { width: 100%; height: clamp(110px, 18vh, 150px); }
-  .machine-pill {
-    font-size: 7px; padding: 4px 6px; letter-spacing: 0.7px; gap: 4px;
-    max-width: 100%; overflow: hidden; text-overflow: ellipsis;
-  }
-  .pill-dot { width: 5px; height: 5px; }
-
-  /* Fades */
-  .right-fade { display: none; }
-  .bottom-fade { height: 60px; }
-
-  /* Stats row */
-  .stats {
-    position: relative; left: auto; right: auto; bottom: auto;
-    margin-top: 10px;
-    padding: 14px 24px 20px;
-    gap: 0;
-    justify-content: space-around;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    z-index: 10;
-    order: 3;
-    margin-top: auto;
-  }
-  .stat-number { font-size: 22px; }
-  .stat-label { font-size: 9px; letter-spacing: 1.5px; }
-  .stat-divider { width: 1px; height: 30px; }
-}
-
-/* ════════════════════════════════════════════════════
-   SMALL MOBILE  (≤399px)
-════════════════════════════════════════════════════ */
-@media (max-width: 399px) {
-  .headline { font-size: 36px; letter-spacing: -1.5px; }
-  .nav-flyer span:first-child { display: none; }
-  .nav-contact span:first-child { display: none; }
-  .content { padding: 82px 16px 14px; }
-  .machines { padding: 0 10px; gap: 6px; margin-top: 0; }
-  .machine-float { height: clamp(98px, 16vh, 128px); }
-  .machine-pill { font-size: 6px; padding: 4px 5px; letter-spacing: 0.6px; gap: 3px; }
-  .pill-dot { width: 4px; height: 4px; }
-  .stats { padding: 12px 16px 16px; margin-top: auto; }
-}
-
-/* ════════════════════════════════════════════════════
-   MODALS  (base)
-════════════════════════════════════════════════════ */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,0.85); backdrop-filter: blur(16px);
-  z-index: 200; display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-  padding: 16px;
-}
-.modal-overlay.open { opacity: 1; pointer-events: all; }
-
-.modal {
-  background: #111116; border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 24px; padding: 40px; width: min(560px, 100%);
-  max-height: 90vh; overflow-y: auto;
-  position: relative;
-  transform: translateY(24px) scale(0.97);
-  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
-  box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,75,158,0.08);
-}
-.modal-overlay.open .modal { transform: translateY(0) scale(1); }
-
-.modal-close {
-  position: absolute; top: 16px; right: 16px;
-  width: 34px; height: 34px; border-radius: 50%;
-  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.5); font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
-}
-.modal-close:hover { background: rgba(255,255,255,0.1); color: white; }
-
-.modal-badge {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(200,75,158,0.1); border: 1px solid rgba(200,75,158,0.2);
-  border-radius: 100px; padding: 5px 14px; margin-bottom: 16px;
-}
-.modal-badge span { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #d46db3; }
-
-.modal h2 { font-size: 28px; font-weight: 800; color: white; letter-spacing: -1px; margin-bottom: 8px; line-height: 1.15; }
-.modal > p { font-size: 14px; color: rgba(255,255,255,0.4); margin-bottom: 28px; line-height: 1.6; }
-
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
-.form-full { margin-bottom: 12px; }
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-.form-group label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
-.form-group input, .form-group select, .form-group textarea {
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px; padding: 12px 15px; font-family: 'Outfit', sans-serif;
-  font-size: 14px; color: white; outline: none;
-  transition: border-color 0.2s, background 0.2s; width: 100%;
-}
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-  border-color: rgba(200,75,158,0.5); background: rgba(255,255,255,0.06);
-}
-.form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.18); }
-.form-group select option { background: #1a1a22; }
-.form-group textarea { resize: none; height: 80px; }
-.field-error { border-color: rgba(200,75,158,0.6) !important; background: rgba(200,75,158,0.04) !important; }
-
-.modal-submit {
-  width: 100%; padding: 15px;
-  background: linear-gradient(135deg, #c84b9e, #e8883a);
-  border: none; border-radius: 100px; color: white;
-  font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 700;
-  cursor: pointer; margin-top: 6px; box-shadow: 0 8px 32px rgba(200,75,158,0.25);
-  transition: transform 0.2s, box-shadow 0.2s;
-  display: flex; align-items: center; justify-content: center; gap: 10px;
-}
-.modal-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(200,75,158,0.45); }
-
-.success-state { display: none; text-align: center; padding: 16px 0; }
-.success-icon {
-  width: 68px; height: 68px; border-radius: 50%;
-  background: linear-gradient(135deg, #c84b9e, #e8883a);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 22px; font-size: 30px; box-shadow: 0 0 40px rgba(200,75,158,0.4);
-}
-.success-state h3 { font-size: 26px; font-weight: 800; color: white; margin-bottom: 12px; }
-.success-state p { font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.7; }
-
-/* Modal responsive */
-@media (max-width: 600px) {
-  .modal { padding: 28px 20px; border-radius: 20px; }
-  .modal h2 { font-size: 24px; }
-  .form-grid { grid-template-columns: 1fr; }
-}
-
-/* ── Solutions modal ── */
-.solutions-modal { width: min(740px, 100%); }
-.solutions-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-top: 24px; }
-.solution-card {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 16px; padding: 20px 16px; cursor: pointer; transition: all 0.25s;
-}
-.solution-card:hover { transform: translateY(-4px); }
-.card-pink:hover { background: rgba(200,75,158,0.07); border-color: rgba(200,75,158,0.3); }
-.card-orange:hover { background: rgba(232,136,58,0.07); border-color: rgba(232,136,58,0.3); }
-.card-purple:hover { background: rgba(124,58,237,0.07); border-color: rgba(124,58,237,0.3); }
-.solution-icon {
-  width: 42px; height: 42px; border-radius: 12px;
-  display: flex; align-items: center; justify-content: center; font-size: 20px; margin-bottom: 14px;
-}
-.icon-pink { background: rgba(200,75,158,0.15); }
-.icon-orange { background: rgba(232,136,58,0.15); }
-.icon-purple { background: rgba(124,58,237,0.15); }
-.solution-card h3 { font-size: 14px; font-weight: 700; color: white; margin-bottom: 7px; }
-.solution-card p { font-size: 12px; color: rgba(255,255,255,0.38); line-height: 1.5; margin-bottom: 12px; }
-.solution-features { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-.solution-features li { font-size: 11px; color: rgba(255,255,255,0.45); display: flex; align-items: center; gap: 7px; }
-.solution-features li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
-.feat-pink::before { background: #c84b9e; }
-.feat-orange::before { background: #e8883a; }
-.feat-purple::before { background: #7c3aed; }
-.solution-cta { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); }
-.solution-cta span { font-size: 11px; font-weight: 600; }
-.cta-pink { color: #c84b9e; } .cta-orange { color: #e8883a; } .cta-purple { color: #7c3aed; }
-.sol-arrow { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; color: white; }
-.arrow-pink { background: rgba(200,75,158,0.2); } .arrow-orange { background: rgba(232,136,58,0.2); } .arrow-purple { background: rgba(124,58,237,0.2); }
-.solutions-footer {
-  margin-top: 20px; padding: 16px 20px;
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 14px; display: flex; align-items: center; justify-content: space-between; gap: 16px;
-}
-.solutions-footer p { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
-.solutions-footer strong { color: white; }
-.footer-btn {
-  flex-shrink: 0; padding: 11px 24px;
-  background: linear-gradient(135deg, #c84b9e, #e8883a); border: none;
-  border-radius: 100px; color: white; font-family: 'Outfit', sans-serif;
-  font-size: 13px; font-weight: 700; cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap;
-}
-.footer-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(200,75,158,0.4); }
-
-@media (max-width: 600px) {
-  .solutions-grid { grid-template-columns: 1fr; }
-  .solutions-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .footer-btn { width: 100%; text-align: center; justify-content: center; display: flex; }
-}
-
-/* ── Contact modal ── */
-.contact-modal { width: min(600px, 100%); }
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; margin-bottom: 16px; }
-.contact-card {
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 18px; padding: 20px 18px;
-  display: flex; flex-direction: column; gap: 10px;
-  transition: all 0.25s; text-decoration: none; cursor: pointer;
-}
-.contact-card:hover { transform: translateY(-3px); }
-.contact-card.card-email:hover { background: rgba(200,75,158,0.06); border-color: rgba(200,75,158,0.25); }
-.contact-card.card-phone:hover { background: rgba(232,136,58,0.06); border-color: rgba(232,136,58,0.25); }
-.contact-card.card-location { grid-column: 1 / -1; flex-direction: row; align-items: flex-start; gap: 16px; cursor: default; }
-.contact-card.card-location:hover { background: rgba(124,58,237,0.05); border-color: rgba(124,58,237,0.2); transform: none; }
-.contact-card-icon {
-  width: 44px; height: 44px; border-radius: 13px;
-  display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0;
-}
-.icon-email { background: rgba(200,75,158,0.15); }
-.icon-phone { background: rgba(232,136,58,0.15); }
-.icon-location { background: rgba(124,58,237,0.15); }
-.contact-card-body { display: flex; flex-direction: column; gap: 4px; }
-.contact-card-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
-.contact-card-value { font-size: 14px; font-weight: 600; color: white; line-height: 1.3; }
-.contact-card-sub { font-size: 11.5px; color: rgba(255,255,255,0.35); line-height: 1.5; margin-top: 2px; }
-.contact-card-action { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 600; margin-top: 6px; }
-.action-email { color: #c84b9e; } .action-phone { color: #e8883a; }
-.contact-hours {
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 14px; padding: 14px 18px; margin-bottom: 14px; gap: 12px;
-}
-.contact-hours-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
-.hours-icon {
-  width: 34px; height: 34px; border-radius: 10px;
-  background: rgba(200,75,158,0.12);
-  display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;
-}
-.hours-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.hours-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); }
-.hours-value { font-size: 12px; font-weight: 500; color: rgba(255,255,255,0.7); white-space: normal; line-height: 1.4; }
-.hours-badge {
-  display: flex; align-items: center; gap: 6px;
-  background: rgba(60,185,106,0.1); border: 1px solid rgba(60,185,106,0.2);
-  border-radius: 100px; padding: 5px 12px; flex-shrink: 0;
-}
-.hours-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #3cb96a; box-shadow: 0 0 6px #3cb96a; animation: pulse 2s ease-in-out infinite; }
-.hours-badge span { font-size: 11px; font-weight: 600; color: #3cb96a; }
-.contact-cta-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  background: linear-gradient(135deg, rgba(200,75,158,0.08), rgba(232,136,58,0.06));
-  border: 1px solid rgba(200,75,158,0.18); border-radius: 14px; padding: 16px 20px; gap: 14px;
-}
-.contact-cta-bar p { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
-.contact-cta-bar strong { color: white; }
-.cta-bar-btn {
-  flex-shrink: 0; padding: 10px 20px;
-  background: linear-gradient(135deg, #c84b9e, #e8883a); border: none;
-  border-radius: 100px; color: white; font-family: 'Outfit', sans-serif;
-  font-size: 13px; font-weight: 700; cursor: pointer; transition: transform 0.2s; white-space: nowrap;
-}
-.cta-bar-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(200,75,158,0.4); }
-
-@media (max-width: 600px) {
-  .contact-grid { grid-template-columns: 1fr; }
-  .contact-card.card-location { flex-direction: column; }
-  .contact-hours { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .contact-cta-bar { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .cta-bar-btn { width: 100%; text-align: center; }
-}
-
-/* ── Flyer modal ── */
-.flyer-dialog {
-  width: min(794px, calc(100vw - 20px));
-  border: none;
-  border-radius: 12px;
-  background: transparent;
-  color: white;
+body.embed-mode {
+  background: #ffffff;
+  display: block;
+  min-height: auto;
   padding: 0;
-  overflow: hidden;
-  max-height: 95vh;
-  margin: auto;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  overflow: auto;
 }
-.flyer-dialog::backdrop {
-  background: rgba(0,0,0,0.75);
-  backdrop-filter: blur(8px);
+body.embed-mode .page {
+  box-shadow: none;
+  margin: 0 auto;
+  width: min(794px, 100%);
+  height: auto;
 }
-.flyer-dialog-head {
+
+/* ── A4 794 × 1123 px ── */
+.page {
+  width: 794px;
+  height: 1123px;
+  background: #ffffff;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  flex-shrink: 0;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+.page, .page * { font-stretch: normal; }
+
+/* ════════════════════════
+   1.  HEADER  — dark band
+════════════════════════ */
+.header {
+  background: #0d0d12;
+  height: 420px;
+  flex-shrink: 0;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+/* single clean glow — far from text */
+.header-glow {
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,75,158,0.22) 0%, transparent 60%);
+  right: -100px; top: -200px;
+  pointer-events: none;
+}
+
+/* left col */
+.h-left {
+  width: 440px;
+  padding: 36px 0 26px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 22px;
+  position: relative;
+  z-index: 2;
+}
+
+.logo {
+  display: flex; align-items: center; gap: 12px;
+}
+.logo-squares {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+  width: 30px; height: 30px;
+}
+.ls { border-radius: 4px; background: #c84b9e; }
+.ls:nth-child(2) { background: #e8883a; opacity: .7; }
+.ls:nth-child(3) { background: #e8883a; opacity: .7; }
+.logo-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px; font-weight: 800;
+  color: #ffffff; letter-spacing: 0;
+}
+
+.h-copy {}
+
+.tag-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(200,75,158,0.15);
+  border: 1px solid #c84b9e;
+  border-radius: 4px;
+  padding: 5px 13px;
+  margin-bottom: 20px;
+}
+.tag-pill span {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  line-height: 1.2;
+  color: #e07ec0;
+}
+
+.h-headline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 38px; font-weight: 900;
+  line-height: 1.14; letter-spacing: -0.1px;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+.h-headline .accent {
+  color: #e8883a;
+}
+
+.h-sub {
+  font-size: 12px; font-weight: 400;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: #c0c0cc;
+  max-width: 326px;
+}
+.h-sub b {
+  color: #ffffff; font-weight: 600;
+}
+.h-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 330px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.h-points li {
+  position: relative;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: #cfd0d8;
+  padding-left: 16px;
+}
+.h-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.54em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #c84b9e 0%, #e8883a 100%);
+  box-shadow: 0 0 0 3px rgba(200,75,158,0.18);
+}
+.h-points li b {
+  color: #ffffff;
+  font-weight: 700;
+}
+.h-free-amenity {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  background: linear-gradient(90deg, rgba(200,75,158,0.28), rgba(232,136,58,0.28));
+  border: 1px solid rgba(255,255,255,0.34);
+  border-radius: 999px;
+  padding: 7px 14px;
+  margin: 2px 0 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #ffffff;
+  box-shadow: 0 5px 18px rgba(232,136,58,0.22);
+}
+
+/* right col — machine image */
+.h-right {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  padding-right: 10px;
+}
+.h-right img {
+  height: 350px;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom;
+  display: block;
+}
+
+/* ════════════════════════
+   2.  PINK OFFER BAR
+════════════════════════ */
+.offer-bar {
+  background: linear-gradient(90deg, #c84b9e 0%, #e8883a 100%);
+  height: 62px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 52px;
+  gap: 20px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 4px 16px rgba(200,75,158,0.3);
+}
+.ob-price {
+  font-family: 'Poppins', sans-serif;
+  font-size: 32px; font-weight: 900;
+  color: #ffffff; letter-spacing: -0.2px;
+  flex-shrink: 0;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+.ob-rule {
+  width: 1px; height: 32px;
+  background: rgba(255,255,255,0.4);
+  flex-shrink: 0;
+}
+.ob-text {
+  font-size: 13px; font-weight: 600;
+  line-height: 1.25;
+  color: #ffffff;
+}
+.ob-text span {
+  font-size: 11px; font-weight: 400;
+  color: rgba(255,255,255,0.8);
+  margin-left: 6px;
+  line-height: 1.2;
+}
+.ob-right {
+  margin-left: auto;
+  font-size: 10px; font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  text-align: right;
+  line-height: 1.35;
+}
+
+/* ════════════════════════
+   4.  MIDDLE GRID
+════════════════════════ */
+.middle {
+  display: grid;
+  grid-template-columns: 1.1fr 0.8fr 1.1fr;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+/* Steps */
+.steps-col {
+  border-left: 1px solid #f0e3f4;
+  border-right: 1px solid #f0e3f4;
+  background: linear-gradient(180deg, #fff4fb 0%, #fff2e6 100%);
+  padding: 24px 24px 22px;
+  display: flex;
+  flex-direction: column;
+}
+.col-label {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  line-height: 1.2;
+  color: #c45ca0;
+  margin-bottom: 16px;
+}
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  padding-left: 18px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #4b3a62;
+}
+.step::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #c84b9e 0%, #e8883a 100%);
+  box-shadow: 0 0 0 3px rgba(200,75,158,0.14);
+}
+.steps-subsection {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #ebc6de;
+  background: #fffdfd;
+  border-radius: 10px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
+}
+.steps-eyebrow {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #c45ca0;
   margin-bottom: 6px;
 }
-.flyer-dialog h3 {
-  display: none;
+.steps-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.1px;
+  color: #554270;
+  margin-bottom: 4px;
 }
-.flyer-frame {
-  width: 100%;
-  height: min(88vh, 1123px);
-  border: none;
+.steps-sub {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: #7a688f;
+}
+.steps-qr {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+  border: 1px solid #efcde2;
   border-radius: 10px;
-  background: #fff;
+  background: #ffffff;
+}
+.steps-qr img {
+  width: 84px;
+  height: 84px;
   display: block;
+}
+.steps-qr span {
+  font-size: 9px;
+  font-weight: 600;
+  color: #6a4a70;
+}
+
+/* Side images */
+.image-col {
+  padding: 10px 10px 24px;
+  display: flex;
+  align-items: stretch;
+}
+.image-col.left {
+  padding-left: 20px;
+}
+.image-col.right {
+  padding-right: 20px;
+}
+.ph {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+}
+.ph img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+}
+.stat-block {
+  background: #0d0d12;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 12px 8px;
+}
+.sb-num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px; font-weight: 900;
+  color: #e8883a; letter-spacing: -0.1px;
+  line-height: 1;
+}
+.sb-lbl {
+  font-size: 8px; font-weight: 600;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-top: 3px;
+}
+.sb-div { width: 24px; height: 1px; background: rgba(255,255,255,0.12); }
+
+/* ════════════════════════
+   5.  FOOTER / CTA
+════════════════════════ */
+.footer {
+  background: #0d0d12;
+  flex-shrink: 0;
+  padding: 14px 32px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.f-left { max-width: 280px; }
+.f-eyebrow {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  line-height: 1.2;
+  color: #c84b9e; margin-bottom: 5px;
+}
+.f-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px; font-weight: 900;
+  color: #ffffff; letter-spacing: -0.1px;
+  line-height: 1.15; margin-bottom: 4px;
+}
+.f-sub {
+  font-size: 10px; font-weight: 400;
+  line-height: 1.3;
+  color: rgba(255,255,255,0.45);
+}
+.f-contacts {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 14px;
+  width: 100%;
+  max-width: none;
+  flex: 1 1 auto;
+}
+.fc {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  width: 100%;
+  flex: 1 1 0;
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+.fc.phone-stack {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+.phone-stack .fc-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.footer .stat-block {
+  width: 156px;
+  min-width: 156px;
+  background: linear-gradient(135deg, rgba(200,75,158,0.30), rgba(232,136,58,0.20));
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 7px 8px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+}
+.footer .sb-div {
+  width: 1px;
+  height: 22px;
+  background: rgba(255,255,255,0.24);
+}
+.footer .sb-num {
+  font-size: 13px;
+}
+.footer .sb-lbl {
+  font-size: 6px;
+  letter-spacing: 0.7px;
+}
+.fc-ico {
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; flex-shrink: 0;
+}
+.fc-lbl {
+  font-size: 7px; font-weight: 600;
+  letter-spacing: 0.8px; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 2px;
+}
+.fc-val {
+  font-size: 10px; font-weight: 700;
+  color: #ffffff; letter-spacing: 0;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+@media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    display: block;
+  }
+  .page {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    box-shadow: none !important;
+    overflow: hidden;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
 }
 </style>
 </head>
 <body>
-<div class="hero">
-  <div class="orb orb-1"></div>
-  <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
-  <div class="grid-lines"></div>
+<div class="page">
 
-  <!-- ── Navigation ── -->
-  <nav class="nav">
-    <div class="logo">
-      <div class="logo-icon">
-        <div class="logo-dot"></div>
-        <div class="logo-dot" style="opacity:0.7"></div>
-        <div class="logo-dot" style="opacity:0.7"></div>
-        <div class="logo-dot"></div>
+  <!-- 1. HEADER -->
+  <div class="header">
+    <div class="header-glow"></div>
+    <div class="h-left">
+      <div class="logo">
+        <div class="logo-squares">
+          <div class="ls"></div><div class="ls"></div>
+          <div class="ls"></div><div class="ls"></div>
+        </div>
+        <span class="logo-name">SavorSmart</span>
       </div>
-      <span class="logo-text">SavorSmart</span>
+      <div class="h-copy">
+        <div class="tag-pill"><span>Free Building Amenities Program — GTA</span></div>
+        <h1 class="h-headline">Add a Free<br>Amenity to<br><span class="accent">Your Building.</span></h1>
+        <ul class="h-points">
+          <li>Modern AI vending.</li>
+          <li>We install, stock, maintain.</li>
+          <li><b>You pay nothing.</b></li>
+        </ul>
+        <br>
+        <!--<div class="h-free-amenity">Free Amenity</div>-->
+      </div>
     </div>
-    <div class="nav-actions">
-      <!--<button class="nav-flyer" onclick="openFlyerDialog()"><span>📰</span> View Flyer</button>-->
-      <button class="nav-contact" onclick="openModal('contact-modal')"><span>📬</span> Contact Us</button>
-    </div>
-  </nav>
-
-  <!-- ── Main content ── -->
-  <div class="content">
-    <div class="badge"><div class="badge-dot"></div><span>Free Building Amenities Program</span></div>
-    <h1 class="headline">Vending<br><span class="line-2">Amenities</span></h1>
-    <p class="subtext">We install, maintain, and fully stock modern amenity stations in your building at no cost to you. Your residents and teams get convenient 24/7 access, while we handle everything.</p>
-    <div class="cta-row">
-      <button class="btn-primary" onclick="openModal('quote-modal')">Get It For Your Building<span class="arrow">→</span></button>
-      <button class="btn-secondary" onclick="openModal('solutions-modal')">Amenity Options<span class="arrow">→</span></button>
+    <div class="h-right">
+    <img src="images/new/nt2.png"/>
     </div>
   </div>
-
-  <!-- ── Stats ── -->
-  <div class="stats">
-    <div class="stat"><span class="stat-number">$0</span><span class="stat-label">Cost To Building</span></div>
-    <div class="stat-divider"></div>
-    <div class="stat"><span class="stat-number">24/7</span><span class="stat-label">Amenity Access</span></div>
-    <div class="stat-divider"></div>
-    <div class="stat"><span class="stat-number">Full</span><span class="stat-label">Managed Service</span></div>
+  <!-- 2. OFFER BAR -->
+  <div class="offer-bar">
+    <span class="ob-price">FREE</span>
+    <div class="ob-rule"></div>
+    <span class="ob-text">
+      Zero cost to property owners &amp; managers <br>
+      <span>- We earn through product sales. You provide the space.</span>
+    </span>
+    <div class="ob-right">No contracts &bull; No hidden fees<br>No maintenance calls — ever</div>
   </div>
 
-  <!-- ── Vending machines ── -->
-  <div class="machines">
-    <div class="machine-slot ms-1">
-      <div class="machine-pill mpp-1"><div class="pill-dot" style="background:#c84b9e;box-shadow:0 0 8px #c84b9e;"></div>Zero Cost To Property</div>
-      <div class="machine-float mf-1"><img src="./images/new/new1.png" alt="SavorSmart vending machine"/></div>
+  <!-- 3. MIDDLE -->
+  <div class="middle">
+    <div class="image-col left">
+      <div class="ph"><img src="images/new/new1.png"/></div>
     </div>
-    <div class="machine-slot ms-2">
-      <div class="machine-pill mpp-2"><div class="pill-dot" style="background:#e8883a;box-shadow:0 0 8px #e8883a;"></div>We Install &amp; Maintain</div>
-      <div class="machine-float mf-2"><img src="./images/new/new2.png" alt="SavorSmart vending machine"/></div>
-    </div>
-    <div class="machine-slot ms-3">
-      <div class="machine-pill mpp-3"><div class="pill-dot" style="background:#7c3aed;box-shadow:0 0 8px #7c3aed;"></div>We Stock Everything</div>
-      <div class="machine-float mf-3"><img src="./images/new/new3.png" alt="SavorSmart vending machine"/></div>
-    </div>
-  </div>
-  <div class="right-fade"></div>
-  <div class="bottom-fade"></div>
-</div>
 
-<dialog id="flyer-dialog" class="flyer-dialog">
-  <div class="flyer-dialog-head">
-    <button class="modal-close" type="button" onclick="closeFlyerDialog()">✕</button>
-  </div>
-  <iframe id="flyer-frame" class="flyer-frame" src="./flyer1side.html?embed=1" title="SavorSmart Flyer"></iframe>
-</dialog>
-
-<!-- ══════════════════════════════
-     QUOTE MODAL
-══════════════════════════════ -->
-<div class="modal-overlay" id="quote-modal" onclick="overlayClick(event,'quote-modal')">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('quote-modal')">✕</button>
-    <div id="quote-form">
-      <div class="modal-badge"><span>🎁 Zero Cost to You</span></div>
-      <h2>Get Your Free<br>Building Amenities Plan</h2>
-      <p style="color:rgba(255,255,255,0.4)">Tell us about your property and we’ll design a fully managed amenities setup. We install, maintain, and stock it at no cost to your building.</p>
+    <div class="steps-col">
+        <br>
+      <div class="col-label"><b>Why Choose US?</b></div>
+      <ul class="steps">
+        <li class="step">$0 Installation</li>
+        <li class="step">$0 Maintenance</li>
+        <li class="step">$0 Cost to Property Owners</li>
+        <li class="step">Sit Back &amp; Relax</li>
+      </ul>
       <br>
-      <div class="form-grid">
-        <div class="form-group"><label>Full Name *</label><input id="q-name" type="text" placeholder="Jane Smith"/></div>
-        <div class="form-group"><label>Company Name</label><input id="q-company" type="text" placeholder="Acme Corp"/></div>
+      <div class="steps-subsection">
+        <div class="steps-eyebrow">Ready to add this to your property?</div>
+        <div class="steps-title">Schedule a FREE Building Assessment</div>
+        <div class="steps-sub">No commitment. No contract. We come to you.</div>
+        <a class="steps-qr" href="https://savorsmart.ca" target="_blank" rel="noopener noreferrer" aria-label="Open savorsmart.ca">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=168x168&data=https%3A%2F%2Fsavorsmart.ca" alt="QR code for savorsmart.ca">
+          <span>Scan to visit savorsmart.ca</span>
+        </a>
       </div>
-      <div class="form-grid">
-        <div class="form-group"><label>Email Address *</label><input id="q-email" type="email" placeholder="jane@company.com"/></div>
-        <div class="form-group"><label>Phone Number</label><input id="q-phone" type="tel" placeholder="+1 (416) 000-0000"/></div>
-      </div>
-      <div class="form-full">
-        <div class="form-group">
-          <label>Location Type *</label>
-          <select id="q-type">
-            <option value="" disabled selected>Select your location type</option>
-            <option>Office Building</option>
-            <option>Warehouse / Factory</option>
-            <option>Apartment Complex</option>
-            <option>Gym / Fitness Centre</option>
-            <option>Hospital / Medical</option>
-            <option>School / University</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-full">
-        <div class="form-group"><label>Additional Details</label><textarea id="q-msg" placeholder="Number of employees, floors, current vending situation..."></textarea></div>
-      </div>
-      <button class="modal-submit" id="quote-submit-btn" onclick="submitQuote()">Request Free Consultation <span style="font-size:16px">→</span></button>
-      <p id="quote-error" style="display:none;margin-top:10px;font-size:12px;color:#ff9b9b;">Could not send right now. Please try again in a moment.</p>
     </div>
-    <div class="success-state" id="quote-success">
-      <div class="success-icon">✓</div>
-      <h3>You're All Set!</h3>
-      <p>Our team will contact you within <strong style="color:white">24 hours</strong> to discuss your free building amenities plan.</p>
-      <p style="margin-top:14px;font-size:13px;color:rgba(255,255,255,0.35)">Questions? Call <strong style="color:#c84b9e">+1 (416) 474 5751</strong> or email <strong style="color:#c84b9e">info@savorsmart.com</strong></p>
+
+    <div class="image-col right">
+      <div class="ph"><img src="images/new/new2.png"/></div>
     </div>
   </div>
-</div>
 
-<!-- ══════════════════════════════
-     SOLUTIONS MODAL
-══════════════════════════════ -->
-<div class="modal-overlay" id="solutions-modal" onclick="overlayClick(event,'solutions-modal')">
-  <div class="modal solutions-modal">
-    <button class="modal-close" onclick="closeModal('solutions-modal')">✕</button>
-    <div class="modal-badge"><span>⚙️ Amenity Options</span></div>
-    <h2>Free Amenities for Buildings</h2>
-    <p>Every option is fully managed and zero-cost to your property. Choose the amenity setup that best fits your residents, tenants, or staff.</p>
-    <div class="solutions-grid">
-      <div class="solution-card card-pink" onclick="pickSolution()">
-        <div class="solution-icon icon-pink">🤖</div>
-        <h3>AI-Powered Vending</h3>
-        <p>Smart machines that learn preferences and auto-optimize stock in real time.</p>
-        <ul class="solution-features">
-          <li class="feat-pink">Intelligent stock management</li>
-          <li class="feat-pink">Contactless &amp; cashless payment</li>
-          <li class="feat-pink">Personalized recommendations</li>
-          <li class="feat-pink">Energy-efficient technology</li>
-        </ul>
-        <div class="solution-cta"><span class="cta-pink">Get This Solution</span><div class="sol-arrow arrow-pink">→</div></div>
+  <!-- 5. FOOTER -->
+  <div class="footer">
+    <!--<div class="f-left">
+      <div class="f-eyebrow">Ready to add this to your property?</div>
+      <div class="f-title">Get a FREE Assessment</div>
+      <div class="f-sub">No commitment. No contract. We come to you.</div>
+    </div>-->
+    <div class="f-contacts">
+      <div class="fc">
+        <div class="fc-ico" style="background:rgba(200,75,158,0.2);">📞</div>
+        <div>
+          <div class="fc-lbl">Call or Text</div>
+          <div class="fc-val">+1 (416) 474 5751</div>
+        </div>
       </div>
-      <div class="solution-card card-orange" onclick="pickSolution()">
-        <div class="solution-icon icon-orange">🏪</div>
-        <h3>Micro Markets</h3>
-        <p>A full self-serve market in your breakroom — fresh food, snacks &amp; drinks 24/7.</p>
-        <ul class="solution-features">
-          <li class="feat-orange">24/7 access to diverse products</li>
-          <li class="feat-orange">Secure self-checkout kiosk</li>
-          <li class="feat-orange">Customizable to your space</li>
-          <li class="feat-orange">Promotes employee well-being</li>
-        </ul>
-        <div class="solution-cta"><span class="cta-orange">Get This Solution</span><div class="sol-arrow arrow-orange">→</div></div>
+      <div class="fc">
+        <div class="fc-ico" style="background:rgba(232,136,58,0.2);">✉️</div>
+        <div>
+          <div class="fc-lbl">Email</div>
+          <div class="fc-val">info@savorsmart.ca</div>
+        </div>
       </div>
-      <div class="solution-card card-purple" onclick="pickSolution()">
-        <div class="solution-icon icon-purple">✨</div>
-        <h3>Specialized Vending</h3>
-        <p>Custom solutions — age-verified products, premium coffee, fresh food combos.</p>
-        <ul class="solution-features">
-          <li class="feat-purple">Age-verified product sales</li>
-          <li class="feat-purple">Fresh bean-to-cup coffee</li>
-          <li class="feat-purple">Hot &amp; cold beverages</li>
-          <li class="feat-purple">Non-traditional items</li>
-        </ul>
-        <div class="solution-cta"><span class="cta-purple">Get This Solution</span><div class="sol-arrow arrow-purple">→</div></div>
+      <div class="fc">
+        <div class="fc-ico" style="background:rgba(124,58,237,0.2);">🌐</div>
+        <div>
+          <div class="fc-lbl">Website</div>
+          <div class="fc-val">savorsmart.ca</div>
+        </div>
       </div>
-    </div>
-    <div class="solutions-footer">
-      <p>All solutions include <strong>free installation, stocking &amp; maintenance</strong> — zero cost to your business, ever.</p>
-      <button class="footer-btn" onclick="switchToQuote()">Get a Free Quote →</button>
     </div>
   </div>
-</div>
 
-<!-- ══════════════════════════════
-     CONTACT MODAL
-══════════════════════════════ -->
-<div class="modal-overlay" id="contact-modal" onclick="overlayClick(event,'contact-modal')">
-  <div class="modal contact-modal">
-    <button class="modal-close" onclick="closeModal('contact-modal')">✕</button>
-    <div class="modal-badge"><span>📬 Get In Touch</span></div>
-    <h2>Contact SavorSmart</h2>
-    <p>We respond fast. Reach us by email, phone, or come visit — we serve businesses across the GTA.</p>
-    <div class="contact-grid">
-      <a class="contact-card card-email" href="mailto:info@savorsmart.com">
-        <div class="contact-card-icon icon-email">✉️</div>
-        <div class="contact-card-body">
-          <span class="contact-card-label">Email Us</span>
-          <span class="contact-card-value">info@savorsmart.com</span>
-          <span class="contact-card-sub">We reply within a few hours on business days</span>
-          <span class="contact-card-action action-email">Open email →</span>
-        </div>
-      </a>
-      <a class="contact-card card-phone" href="tel:+14164745751">
-        <div class="contact-card-icon icon-phone">📞</div>
-        <div class="contact-card-body">
-          <span class="contact-card-label">Call Us</span>
-          <span class="contact-card-value">+1 (416) 474-5751</span>
-          <span class="contact-card-sub">Available 24/7</span>
-          <span class="contact-card-action action-phone">Call now →</span>
-        </div>
-      </a>
-      <div class="contact-card card-location">
-        <div class="contact-card-icon icon-location">📍</div>
-        <div class="contact-card-body">
-          <span class="contact-card-label">Service Area</span>
-          <span class="contact-card-value">Greater Toronto Area, Ontario, Canada</span>
-          <span class="contact-card-sub">Serving Toronto, Mississauga, Brampton, Markham, Vaughan, Oakville &amp; surrounding regions. Free on-site assessments available — we come to you.</span>
-        </div>
-      </div>
-    </div>
-    <div class="contact-hours">
-      <div class="contact-hours-left">
-        <div class="hours-icon">🕐</div>
-        <div class="hours-text">
-          <span class="hours-label">Business Hours</span>
-          <span class="hours-value">24/7</span>
-        </div>
-      </div>
-      <div class="hours-badge" id="hours-badge">
-        <div class="hours-badge-dot" id="hours-dot"></div>
-        <span id="hours-status">Open 24/7</span>
-      </div>
-    </div>
-    <div class="contact-cta-bar">
-      <p>Ready to upgrade your space? <strong>Book a free site assessment</strong> — no commitment needed.</p>
-      <button class="cta-bar-btn" onclick="switchContactToQuote()">Get Free Quote →</button>
-    </div>
-  </div>
 </div>
-
 <script>
-  function resetQuoteFormState() {
-    const form = document.getElementById('quote-form');
-    const success = document.getElementById('quote-success');
-    const submitBtn = document.getElementById('quote-submit-btn');
-    const errorMsg = document.getElementById('quote-error');
-    if (!form || !success) return;
-
-    form.style.display = 'block';
-    success.style.display = 'none';
-    if (errorMsg) errorMsg.style.display = 'none';
-    if (submitBtn) {
-      submitBtn.disabled = false;
-      submitBtn.style.opacity = '1';
-      submitBtn.innerHTML = 'Request Free Consultation <span style="font-size:16px">→</span>';
-    }
-  }
-
-  function openModal(id) {
-    if (id === 'quote-modal') resetQuoteFormState();
-    document.getElementById(id).classList.add('open');
-  }
-  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-  function overlayClick(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
-  function openFlyerDialog() {
-    const dlg = document.getElementById('flyer-dialog');
-    if (!dlg) return;
-    if (!dlg.open) dlg.showModal();
-  }
-  function closeFlyerDialog() {
-    const dlg = document.getElementById('flyer-dialog');
-    if (dlg && dlg.open) dlg.close();
-  }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') {
-      document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
-      closeFlyerDialog();
-    }
-  });
-
-  async function submitQuote() {
-    let valid = true;
-    ['q-name','q-email','q-type'].forEach(id => {
-      const el = document.getElementById(id);
-      if (!el.value.trim()) {
-        el.classList.add('field-error'); valid = false;
-        setTimeout(() => el.classList.remove('field-error'), 2500);
-      }
-    });
-    if (!valid) return;
-
-    const submitBtn = document.getElementById('quote-submit-btn');
-    const errorMsg = document.getElementById('quote-error');
-    const originalBtnHtml = submitBtn.innerHTML;
-    errorMsg.style.display = 'none';
-    submitBtn.disabled = true;
-    submitBtn.style.opacity = '0.75';
-    submitBtn.innerHTML = 'Sending...';
-
-    const payload = {
-      name: document.getElementById('q-name').value.trim(),
-      company: document.getElementById('q-company').value.trim(),
-      email: document.getElementById('q-email').value.trim(),
-      phone: document.getElementById('q-phone').value.trim(),
-      location_type: document.getElementById('q-type').value.trim(),
-      details: document.getElementById('q-msg').value.trim(),
-      source: 'SavorSmart Quote Modal'
-    };
-
-    try {
-      const res = await fetch('https://formspree.io/f/xaqpyqyy', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (!res.ok) throw new Error('Formspree request failed');
-
-      document.getElementById('quote-form').style.display = 'none';
-      document.getElementById('quote-success').style.display = 'block';
-    } catch (err) {
-      errorMsg.style.display = 'block';
-      submitBtn.disabled = false;
-      submitBtn.style.opacity = '1';
-      submitBtn.innerHTML = originalBtnHtml;
-    }
-  }
-
-  function pickSolution() { closeModal('solutions-modal'); setTimeout(() => openModal('quote-modal'), 280); }
-  function switchToQuote() { closeModal('solutions-modal'); setTimeout(() => openModal('quote-modal'), 280); }
-  function switchContactToQuote() { closeModal('contact-modal'); setTimeout(() => openModal('quote-modal'), 280); }
-
-  // Always open label for 24/7 support
   (function() {
-    const label = document.getElementById('hours-status');
-    if (label) label.textContent = 'Open 24/7';
+    if (new URLSearchParams(window.location.search).get('embed') === '1') {
+      document.body.classList.add('embed-mode');
+    }
   })();
 </script>
 </body>
